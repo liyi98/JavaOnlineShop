@@ -1,4 +1,4 @@
-package com.liyi.shop.activities;
+package com.liyi.shop.small.activity;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,6 +9,7 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.UIManager;
 
+import com.liyi.shop.activities.ActivityCustomerLogin;
 import com.liyi.shop.model.Customer;
 
 import javax.swing.SwingConstants;
@@ -37,7 +38,6 @@ public class SignUpPage extends JFrame{
 		setTitle("Sign Up");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(419,600);
-		setLocationRelativeTo(null);
 		getContentPane().setLayout(null);
 		Color bk = new Color(255, 205, 210);
 		getContentPane().setBackground(bk);
@@ -208,6 +208,7 @@ public class SignUpPage extends JFrame{
 			}
 		});
 		getContentPane().add(lblSignIn);
+		setLocationRelativeTo(null);
 		setVisible(true);
 	}
 }

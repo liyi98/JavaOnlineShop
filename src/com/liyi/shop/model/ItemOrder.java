@@ -3,18 +3,18 @@ package com.liyi.shop.model;
 import java.util.ArrayList;
 
 public class ItemOrder {
-	private Item item;
+	private Product item;
 	private Customer customer;
 	private int quantity = 0;
 	public static ArrayList<ItemOrder> itemorders = new ArrayList<>();
 	
-	public ItemOrder(Item item, Customer customer, int quantity) {
+	public ItemOrder(Product item, Customer customer, int quantity) {
 		this.item = item;
 		this.customer = customer;
 		this.quantity = quantity;
 	}
 	
-	public Item getItem() {
+	public Product getItem() {
 		return item;
 	}
 	
@@ -26,7 +26,7 @@ public class ItemOrder {
 		return quantity;
 	}
 	
-	public void setItem(Item item) {
+	public void setItem(Product item) {
 		this.item = item;
 	}
 	
@@ -38,7 +38,7 @@ public class ItemOrder {
 		this.quantity = quantity;
 	}
 	
-	public ItemOrder addItemOrder(Item item, Customer customer, int quantity) {
+	public ItemOrder addItemOrder(Product item, Customer customer, int quantity) {
 		ItemOrder i = new ItemOrder(item, customer, quantity);
 		itemorders.add(i);
 		return i;

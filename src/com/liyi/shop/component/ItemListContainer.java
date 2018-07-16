@@ -1,59 +1,39 @@
 package com.liyi.shop.component;
 
-import java.awt.Color;
-import java.awt.Component;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
-
-import com.liyi.shop.model.Item;
+import com.liyi.shop.*;
+import com.liyi.shop.model.Category;
+import com.liyi.shop.Main;
+import java.awt.Color;
+import java.awt.SystemColor;
 
 public class ItemListContainer extends JPanel {
-		String c ;
-		ArrayList<String> womens = new ArrayList<>();
-		ArrayList<String> mens = new ArrayList<>();
-		ArrayList<String> home = new ArrayList<>();
-		
+
 	public ItemListContainer(String c) {
+		setBackground(SystemColor.menu);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		JScrollPane scroll = new JScrollPane();
-		
 		if(c.equals("womens")) {
-		for(int t = 0; t<Item.items.size();t++) {
-			if(Item.items.get(t).getType().equals("women")){
-				womens.add( t + "");
-			}
-		
-		}
-		}else if(c.equals("mens")){
-			for(int t = 0; t<Item.items.size();t++) {
-				if(Item.items.get(t).getType().equals("men")){
-					mens.add( t + "");				
+			for(int i = 0; i < Main.women.getAllItems().size(); i++) {
+				if( i % 3 == 0) {
+					add(new ItemList(i, Main.women.getAllItems()));
 				}
-			
 			}
-		}else if(c.equals("home")) {
-			for(int u = Item.items.size(); u<Item.items.size() - 6;u--) {
-				if(u % 3 == 0) {
-					add(new ItemList(u,home));
-				}
 			
-			}
 		}
-			
-
-					
-			for(int u = 0; u< womens.size() ; u++) {
-				if(u % 3 == 0) {
-					add(new ItemList(u,womens));
+		else if (c.equals("mens")) {
+			for(int i = 0; i < Main.men.getAllItems().size(); i++) {
+				if( i % 3 == 0) {
+					add(new ItemList(i,  Main.men.getAllItems()));
 				}
-			
 			}
+			
 		}
-		
-				
+	}
 			
 	
 	

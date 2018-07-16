@@ -2,19 +2,21 @@ package com.liyi.shop.model;
 
 import java.util.ArrayList;
 
+
+
 public class Cart {
-	private Item item;
+	private Product item;
 	private Customer customer;
-	private int quantity = 0;
+	private String quantity ;
 	public static ArrayList<Cart> carts = new ArrayList<>();
-	
-	public Cart(Item item, Customer customer, int quantity) {
+	public Cart() {};
+	public Cart(Product item, Customer customer, String quantity) {
 		this.item = item;
 		this.customer = customer;
 		this.quantity = quantity;
 	}
 	
-	public Item getItem() {
+	public Product getItem() {
 		return item;
 	}
 	
@@ -22,11 +24,11 @@ public class Cart {
 		return customer;
 	}
 	
-	public int getQuantity() {
+	public String getQuantity() {
 		return quantity;
 	}
 	
-	public void setItem(Item item) {
+	public void setItem(Product item) {
 		this.item = item;
 	}
 	
@@ -34,16 +36,23 @@ public class Cart {
 		this.customer = customer;
 	}
 	
-	public void setQuantity(int quantity) {
+	public void setQuantity(String quantity) {
 		this.quantity = quantity;
+		
 	}
 	
-	public Cart addCart(Item item, Customer customer, int quantity) {
+	public void addCart(Product item, Customer customer, String quantity) {
+		System.out.println(item);
+		for(Cart cart: carts) {
+			
+		if(item.equals(cart.item)) {
+				quantity+= cart.quantity;
+			}
+		}
 		Cart cart = new Cart(item, customer, quantity);
 		carts.add(cart);
-		return cart;
 	}
-	
+
 	public Cart delCart(int i) {
 		return carts.remove(i) ;
 	}

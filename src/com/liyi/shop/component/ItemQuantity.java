@@ -13,7 +13,7 @@ import javax.swing.SwingConstants;
 
 public class ItemQuantity extends JPanel {
 	private int num = 1;
-	private JLabel lblNumber;
+	public JLabel lblNumber;
 	public ItemQuantity() {
 		setSize(114,31);
 		

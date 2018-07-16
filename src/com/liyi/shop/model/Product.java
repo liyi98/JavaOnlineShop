@@ -2,23 +2,19 @@ package com.liyi.shop.model;
 
 import java.util.ArrayList;
 
-public class Item {
+public class Product {
 	private String id;
 	private String name;
 	private String photo;
 	private Double price;
 	private String description;
-	private String type;
 	private static int i = 1;
-	public static ArrayList<Item> items = new ArrayList<>();
 	
-	public Item(){}
-	public Item(String name, String photo, double price, String description, String type){
+	public Product(String name, String photo, double price, String description){
 		this.name = name;
 		this.photo = photo;
 		this.price = price;
 		this.description = description;
-		this.type = type;
 		id = "I"+ i++ ;
 	}
 	
@@ -42,10 +38,6 @@ public class Item {
 		return description;
 	}
 	
-	public String getType() {
-		return type;
-	}
-	
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -62,29 +54,6 @@ public class Item {
 		this.description = description;
 	}
 	
-	public void setType(String type) {
-		this.type = type;
-	}
+
 	
-	public static Item addItem(String name, String photo, Double price, String description, String type){
-		Item i = new Item(name, photo, price, description, type);
-		items.add(i);
-		return i;
-	}
-	
-	public Item delItem(int i){
-		return items.remove(i);
-	}
-	
-	
-	public static ArrayList<Item> searchItemByName(String name){
-		ArrayList<Item> itemss = new ArrayList<>();
-		for(int i = 0; i<items.size();i++){		
-			if(items.get(i).getName().matches(".*"+ name + ".*")){
-				itemss.add(items.get(i));
-			}
-		}
-		
-		return itemss;
-	}
 }

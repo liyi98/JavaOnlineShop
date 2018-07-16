@@ -18,14 +18,22 @@ import javax.swing.SwingConstants;
 import com.jgoodies.forms.layout.FormLayout;
 import com.jgoodies.forms.layout.ColumnSpec;
 import com.jgoodies.forms.layout.RowSpec;
+import com.liyi.shop.activities.Template1;
+import com.liyi.shop.model.Cart;
+import com.liyi.shop.model.Product;
 
 public class ItemSingle extends JPanel {
-	public ItemSingle(String image, String name, Double price) {
+	 private Cart cart;
+	 private Product item ;
+	 private ItemQuantity itemQuantity ;
+	public ItemSingle(Product item) {
+		this.item = item;
+		cart = new Cart();
 		setSize(240,220);
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		JLabel lblProductImage = new JLabel("");
 		lblProductImage.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblProductImage.setIcon(new ImageIcon(image));
+		lblProductImage.setIcon(new ImageIcon(item.getPhoto()));
 		add(lblProductImage);
 		add(Box.createRigidArea(new Dimension(10, 8)));
 		
@@ -33,7 +41,7 @@ public class ItemSingle extends JPanel {
 		lblProductName.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		lblProductName.setAlignmentX(Component.CENTER_ALIGNMENT);
 		lblProductName.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
-		lblProductName.setText(name);
+		lblProductName.setText(item.getName());
 		add(lblProductName);
 		add(Box.createRigidArea(new Dimension(7, 7)));
 		
@@ -41,9 +49,9 @@ public class ItemSingle extends JPanel {
 		lblProductPrice.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		lblProductPrice.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
 		lblProductPrice.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblProductPrice.setText("RM " + price.toString());
+		lblProductPrice.setText("RM " + item.getPrice().toString());
 		add(lblProductPrice);
-		ItemQuantity itemQuantity = new ItemQuantity();
+		itemQuantity = new ItemQuantity();
 		add(itemQuantity);
 		add(Box.createRigidArea(new Dimension(7, 7)));
 		
@@ -53,10 +61,25 @@ public class ItemSingle extends JPanel {
 		Color custom = new Color(236, 64, 122);
 		btnCart.setForeground(Color.WHITE);
 		btnCart.setBackground(custom);
+		System.out.println(item);
+		System.out.println(itemQuantity.lblNumber.getText());
+		System.out.println(Template1.c);
+		
 		btnCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				cart.addCart(item, Template1.c, itemQuantity.lblNumber.getText());
+				Template1.lblNum.setText("(" + Cart.carts.size() + ")" );
+				for(int i = 0; i<Cart.carts.size();i++)
+				{
+					System.out.println(Cart.carts.get(i).getItem().getName());
+					System.out.println(Cart.carts.get(i).getQuantity());
+					
+				}
+				
+				
 			}
 		});
+
 		btnCart.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 12));
 		btnCart.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnCart.setSize(50, 25);

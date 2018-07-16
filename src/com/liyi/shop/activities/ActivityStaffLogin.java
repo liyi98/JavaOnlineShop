@@ -6,12 +6,24 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import javax.swing.*;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import com.liyi.shop.model.Admin;
+import com.liyi.shop.model.Staff;
 
 
 public class ActivityStaffLogin extends JFrame{
 	private JTextField textFieldEmail;
 	private JPasswordField passwordField;
+	private Staff s ;
 	public ActivityStaffLogin() {
 		
 	setResizable(false);
@@ -31,6 +43,15 @@ public class ActivityStaffLogin extends JFrame{
 	JButton btnLogin = new JButton("Login");
 	btnLogin.addActionListener(new ActionListener() {
 		public void actionPerformed(ActionEvent arg0) {
+		
+		//System.out.println(Staff.staffs.size());
+			//if(s.loginS(textFieldEmail.getText(), passwordField.getText()) != false) {
+			//	if(s.getRole() == 1) {
+			//		new ActivityAdminMain();
+			//	}
+			//}else {
+			//	JOptionPane.showMessageDialog(null,"Your password or email is wrong");
+			//}
 		}
 	});
 	btnLogin.setBounds(239, 266, 75, 33);

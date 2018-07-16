@@ -2,7 +2,12 @@ package com.liyi.shop.model;
 
 import java.util.ArrayList;
 
-public class Staff {
+import com.liyi.shop.activities.Template1;
+import com.liyi.shop.activities.Template2;
+
+public abstract class Staff {
+	public static final int ROLE_MANAGER = 1;
+	public static final int ROLE_ADMIN = 2;
 	private String id;
 	private String name;
 	private String email;
@@ -11,10 +16,8 @@ public class Staff {
 	private String address2;
 	private String phone;
 	private static int i = 1;
-	public static ArrayList<Staff> managers =  new ArrayList<>();
-	
-	public Staff(){}
-	
+	public static ArrayList<Staff> staffs =  new ArrayList<>();
+	public Staff() {};
 	public Staff(String name, String email, String password, String address1, String address2, String phone){
 		this.name = name;
 		this.email = email;
@@ -76,15 +79,22 @@ public class Staff {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	
-	public Staff addManager(String name, String email, String password, String address1, String address2, String phone){
-		Staff m = new Staff(name, email, password, address1, address2, phone);
-		managers.add(m);
-		return m;
+	public boolean loginS(String email, String password) {
+		for(Staff s : staffs) {
+			if(s.getEmail().equals(email) && s.getPassword().equals(password)){
+				System.out.println("hi");
+				Template2.staff = s;
+				return true;
+			}
+		}
+		return false;
 	}
 	
-	public Staff delManager(int i){
-		return managers.remove(i);
+	public int getRole() {
+		// TODO Auto-generated method stub
+		return 0;
 	}
+	
+
 	
 }

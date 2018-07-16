@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import javax.swing.*;
 
 import com.liyi.shop.model.Customer;
+import com.liyi.shop.small.activity.SignUpPage;
 
 
 public class ActivityCustomerLogin extends JFrame {
@@ -46,10 +47,10 @@ public class ActivityCustomerLogin extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 		
 				Customer j = new Customer();
-				Customer newc = j.loginC(textFieldEmail.getText(), passwordField.getText()) ;
-				if(newc != null) {
+
+				if(j.loginC(textFieldEmail.getText(),passwordField.getText()) != false) {
 					dispose();
-					new ActivityHomePage(newc);
+					new ActivityHomePage();
 				}else {
 					JOptionPane.showMessageDialog(null,"Your password or email is wrong");
 				}
@@ -136,7 +137,7 @@ public class ActivityCustomerLogin extends JFrame {
 	lblTitle.addMouseListener(new MouseAdapter() {
 		@Override
 		public void mouseReleased(MouseEvent e) {
-			new ActivityHomePage(null);
+			new ActivityHomePage();
 			dispose();
 			super.mouseReleased(e);
 		}

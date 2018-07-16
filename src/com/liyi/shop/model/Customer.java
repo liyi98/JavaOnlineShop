@@ -3,6 +3,7 @@ package com.liyi.shop.model;
 import java.util.ArrayList;
 
 import com.liyi.shop.activities.ActivityHomePage;
+import com.liyi.shop.activities.Template1;
 
 public class Customer {
 	private String id;
@@ -119,14 +120,15 @@ public class Customer {
 		return customers.remove(i);
 	}
 	
-	public Customer loginC(String email, String password) {
+	public boolean loginC(String email, String password) {
 		for(Customer c : customers) {
 			if(c.getEmail().equals(email) && c.getPassword().equals(password)){
 				System.out.println("hi");
-				return c;
+				Template1.c = c;
+				return true;
 			}
 		}
-		return null;
+		return false;
 	}
 	
 	public String findPassword(String email, String safeword) {
