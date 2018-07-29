@@ -49,7 +49,7 @@ public class ItemSingle extends JPanel {
 		lblProductPrice.setAlignmentY(Component.BOTTOM_ALIGNMENT);
 		lblProductPrice.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
 		lblProductPrice.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblProductPrice.setText("RM " + item.getPrice().toString());
+		lblProductPrice.setText("RM " + item.getPrice());
 		add(lblProductPrice);
 		itemQuantity = new ItemQuantity();
 		add(itemQuantity);
@@ -61,13 +61,10 @@ public class ItemSingle extends JPanel {
 		Color custom = new Color(236, 64, 122);
 		btnCart.setForeground(Color.WHITE);
 		btnCart.setBackground(custom);
-		System.out.println(item);
-		System.out.println(itemQuantity.lblNumber.getText());
-		System.out.println(Template1.c);
 		
 		btnCart.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				cart.addCart(item, Template1.c, itemQuantity.lblNumber.getText());
+				cart.addCart(item, Template1.c, Integer.parseInt(itemQuantity.lblNumber.getText()));
 				Template1.lblNum.setText("(" + Cart.carts.size() + ")" );
 				for(int i = 0; i<Cart.carts.size();i++)
 				{

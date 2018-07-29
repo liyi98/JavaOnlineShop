@@ -4,18 +4,22 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 
 import java.awt.Color;
 import java.awt.Font;
 import javax.swing.UIManager;
 
+import com.liyi.shop.activities.ActivityAdminCustomer;
 import com.liyi.shop.activities.ActivityCustomerLogin;
 import com.liyi.shop.model.Customer;
+import com.liyi.shop.model.Staff;
 
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 import java.awt.SystemColor;
 import javax.swing.JRadioButton;
+import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -32,7 +36,11 @@ public class AddCustomerPage extends JFrame{
 	private JTextField textAddress1;
 	private JTextField textAddress2;
 	private JTextField textSafeword;
-	public AddCustomerPage() {
+	private char[] pass1;
+	private String password1;
+	private char[] pass2;
+	private String password2;
+	public AddCustomerPage(JFrame frame, Staff staff) {
 		setResizable(false);
 		setTitle("New Customer");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -170,7 +178,11 @@ public class AddCustomerPage extends JFrame{
 		rdbtnFemale.setBounds(262, 238, 109, 23);
 		getContentPane().add(rdbtnFemale);
 		
-		JLabel lblNewLabel = new JLabel("must exactly 4charaters");
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnMale);
+		group.add(rdbtnFemale);
+		
+		JLabel lblNewLabel = new JLabel("must exactly 8charaters");
 		lblNewLabel.setEnabled(false);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -185,9 +197,29 @@ public class AddCustomerPage extends JFrame{
 		btnSignUp.setBackground(custom);
 		btnSignUp.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				Customer c = new Customer();
-				if(txtPassword.getText().equals(txtConfirmPassword.getText())) {
-				c.addCustomer(txtName.getText(), txtEmail.getText(), txtPassword.getText(), rdbtnMale.getText(), textBirthday.getText(),textPhone.getText(),textAddress1.getText(), textAddress2.getText(), textSafeword.getText());
+				pass1 = txtPassword.getPassword();
+				password1 = new String(pass1);
+				pass2 = txtPassword.getPassword();
+				password2 = new String(pass2);
+				if(checkSignUp() > 4) {
+				String gender = (rdbtnFemale.isSelected())? "Female": "Male";
+				Customer.customers.add(new Customer(txtName.getText(), txtEmail.getText(), password1, gender,"12",textPhone.getText(),textAddress1.getText(), textAddress2.getText(), textSafeword.getText()));
+				JOptionPane.showMessageDialog(null,"Sucess!");
+				frame.dispose();
+				new ActivityAdminCustomer(staff);
+			
+				}else if (checkSignUp() == 0) {
+					JOptionPane.showMessageDialog(null,"Please fill up all the required field");
+				}else if (checkSignUp() == 1) {
+					JOptionPane.showMessageDialog(null,"Safeword must exactly 4 character");
+				}else if(checkSignUp() == 2) {
+					JOptionPane.showMessageDialog(null,"Your password not match");
+				}else if(checkSignUp() == 4) {
+					JOptionPane.showMessageDialog(null,"Password must more than 6 character");
+				}else if(checkSignUp() == 6) {
+					JOptionPane.showMessageDialog(null,"Email already exist");
+				}else {
+					JOptionPane.showMessageDialog(null,"Wrong Email Format");
 				}
 			}
 		});
@@ -195,5 +227,31 @@ public class AddCustomerPage extends JFrame{
 		getContentPane().add(btnSignUp);
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+	public int checkSignUp() {
+		pass1 = txtPassword.getPassword();
+		password1 = new String(pass1);
+		pass2 = txtPassword.getPassword();
+		password2 = new String(pass2);
+		char[] safeword = textSafeword.getText().toCharArray();
+		for(Customer customer: Customer.customers) {
+			if(txtEmail.getText().equals(customer.getEmail())) {
+				return 5;
+			}
+		}
+		if(txtName.getText().isEmpty() ||txtEmail.getText().isEmpty()||textPhone.getText().isEmpty() || textAddress1.getText().isEmpty() || password1.isEmpty() || textSafeword.getText().isEmpty()) {
+			return 0;
+		}else if(!(safeword.length == 8)) {
+			return 1;
+		}else if(!password1.equals(password2)){
+			return 2;
+		}else if(!txtEmail.getText().matches("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$")) {
+			return 3;
+		}else if(pass1.length < 7){
+			return 4;
+		}else {
+			return 5;
+		}
+		
 	}
 }

@@ -18,6 +18,8 @@ public class ActivityCustomerLogin extends JFrame {
 	private JLabel lblSignUp;
 	private JButton btnLogin;
 	private JLabel lblTitle;
+	private char[] password;
+	private String pass1;
 	
 	public ActivityCustomerLogin() {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -45,10 +47,9 @@ public class ActivityCustomerLogin extends JFrame {
 		
 		@Override
 		public void actionPerformed(ActionEvent e) {
-		
-				Customer j = new Customer();
-
-				if(j.loginC(textFieldEmail.getText(),passwordField.getText()) != false) {
+			password = passwordField.getPassword();
+			pass1 = new String(password);
+				if(Customer.loginC(textFieldEmail.getText(),pass1) != false) {
 					dispose();
 					new ActivityHomePage();
 				}else {
@@ -113,7 +114,7 @@ public class ActivityCustomerLogin extends JFrame {
 			// TODO Auto-generated method stub
 			super.mouseReleased(e);
 			new SignUpPage();
-			dispose();
+
 		}
 	});
 	lblNext.addMouseListener(new MouseAdapter() {

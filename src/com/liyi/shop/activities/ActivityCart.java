@@ -2,12 +2,11 @@ package com.liyi.shop.activities;
 
 import javax.swing.JFrame;
 
-public class ActivityCart extends Template1 {
+public class ActivityCart extends JFrame {
 
-	@Override
-	public void start() {
-		// TODO Auto-generated method stub
-		
-	}
+
+	private static final long serialVersionUID = 1L;
+
+
 
 }

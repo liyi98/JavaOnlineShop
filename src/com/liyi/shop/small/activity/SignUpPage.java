@@ -1,45 +1,56 @@
 package com.liyi.shop.small.activity;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JLabel;
-
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.UIManager;
-
-import com.liyi.shop.activities.ActivityCustomerLogin;
-import com.liyi.shop.model.Customer;
-
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
 import java.awt.SystemColor;
-import javax.swing.JRadioButton;
-import javax.swing.JButton;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
+
+import com.liyi.shop.activities.ActivityAdminCustomer;
+import com.liyi.shop.activities.ActivityCustomerLogin;
+import com.liyi.shop.model.Customer;
+
 
 public class SignUpPage extends JFrame{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JTextField txtName;
 	private JTextField txtEmail;
 	private JPasswordField txtPassword;
 	private JPasswordField txtConfirmPassword;
-	private JTextField textBirthday;
 	private JTextField textPhone;
 	private JTextField textAddress1;
 	private JTextField textAddress2;
 	private JTextField textSafeword;
 	private JLabel lblSignIn;
+	private char[] pass1;
+	private String password1;
+	private char[] pass2;
+	private String password2;
+	private int[] year;
+
+
 	public SignUpPage() {
 		setResizable(false);
 		setTitle("Sign Up");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setSize(419,600);
 		getContentPane().setLayout(null);
-		Color bk = new Color(255, 205, 210);
+		Color bk = new Color(255, 235, 238);
 		getContentPane().setBackground(bk);
 		
 		JLabel lblSignUpHere = new JLabel("Sign Up");
@@ -76,12 +87,7 @@ public class SignUpPage extends JFrame{
 		lblGender.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
 		lblGender.setBounds(25, 240, 120, 15);
 		getContentPane().add(lblGender);
-		
-		JLabel lblBirthday = new JLabel("Birthday");
-		lblBirthday.setHorizontalAlignment(SwingConstants.LEFT);
-		lblBirthday.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
-		lblBirthday.setBounds(25, 280, 120, 15);
-		getContentPane().add(lblBirthday);
+
 		
 		JLabel lblPhone = new JLabel("Phone");
 		lblPhone.setHorizontalAlignment(SwingConstants.LEFT);
@@ -108,70 +114,68 @@ public class SignUpPage extends JFrame{
 		getContentPane().add(lblSafeword);
 		
 		txtName = new JTextField();
-		txtName.setBackground(SystemColor.controlHighlight);
+		txtName.setBackground(Color.WHITE);
 		txtName.setBounds(150, 79, 220, 20);
 		getContentPane().add(txtName);
 		txtName.setColumns(10);
 		
 		txtEmail = new JTextField();
 		txtEmail.setColumns(10);
-		txtEmail.setBackground(SystemColor.controlHighlight);
+		txtEmail.setBackground(Color.WHITE);
 		txtEmail.setBounds(150, 119, 220, 20);
 		getContentPane().add(txtEmail);
 		
 		txtPassword = new JPasswordField();
 		txtPassword.setColumns(10);
-		txtPassword.setBackground(SystemColor.controlHighlight);
+		txtPassword.setBackground(Color.WHITE);
 		txtPassword.setBounds(150, 159, 220, 20);
 		getContentPane().add(txtPassword);
 		
 		txtConfirmPassword = new JPasswordField();
 		txtConfirmPassword.setColumns(10);
-		txtConfirmPassword.setBackground(SystemColor.controlHighlight);
+		txtConfirmPassword.setBackground(Color.WHITE);
 		txtConfirmPassword.setBounds(150, 199, 220, 20);
 		getContentPane().add(txtConfirmPassword);
 		
-		textBirthday = new JTextField();
-		textBirthday.setColumns(10);
-		textBirthday.setBackground(SystemColor.controlHighlight);
-		textBirthday.setBounds(150, 279, 220, 20);
-		getContentPane().add(textBirthday);
-		
 		textPhone = new JTextField();
 		textPhone.setColumns(10);
-		textPhone.setBackground(SystemColor.controlHighlight);
+		textPhone.setBackground(Color.WHITE);
 		textPhone.setBounds(150, 320, 220, 20);
 		getContentPane().add(textPhone);
 		
 		textAddress1 = new JTextField();
 		textAddress1.setColumns(10);
-		textAddress1.setBackground(SystemColor.controlHighlight);
+		textAddress1.setBackground(Color.WHITE);
 		textAddress1.setBounds(150, 359, 220, 20);
 		getContentPane().add(textAddress1);
 		
 		textAddress2 = new JTextField();
 		textAddress2.setColumns(10);
-		textAddress2.setBackground(SystemColor.controlHighlight);
+		textAddress2.setBackground(Color.WHITE);
 		textAddress2.setBounds(150, 399, 220, 20);
 		getContentPane().add(textAddress2);
 		
 		textSafeword = new JTextField();
 		textSafeword.setColumns(10);
-		textSafeword.setBackground(SystemColor.controlHighlight);
+		textSafeword.setBackground(Color.WHITE);
 		textSafeword.setBounds(150, 439, 220, 20);
 		getContentPane().add(textSafeword);
 		
 		JRadioButton rdbtnMale = new JRadioButton("Male");
-		rdbtnMale.setBackground(SystemColor.controlHighlight);
+		rdbtnMale.setBackground(Color.WHITE);
 		rdbtnMale.setBounds(151, 238, 109, 23);
 		getContentPane().add(rdbtnMale);
 		
 		JRadioButton rdbtnFemale = new JRadioButton("Female");
-		rdbtnFemale.setBackground(SystemColor.controlHighlight);
+		rdbtnFemale.setBackground(Color.WHITE);
 		rdbtnFemale.setBounds(262, 238, 109, 23);
 		getContentPane().add(rdbtnFemale);
 		
-		JLabel lblNewLabel = new JLabel("must exactly 4charaters");
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnMale);
+		group.add(rdbtnFemale);
+	
+		JLabel lblNewLabel = new JLabel("must exactly 8charaters");
 		lblNewLabel.setEnabled(false);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
@@ -184,10 +188,29 @@ public class SignUpPage extends JFrame{
 		btnSignUp.setForeground(Color.WHITE);
 		btnSignUp.setBackground(custom);
 		btnSignUp.addActionListener(new ActionListener() {
+		
 			public void actionPerformed(ActionEvent e) {
-				Customer c = new Customer();
-				if(txtPassword.getText().equals(txtConfirmPassword.getText())) {
-				c.addCustomer(txtName.getText(), txtEmail.getText(), txtPassword.getText(), rdbtnMale.getText(), textBirthday.getText(),textPhone.getText(),textAddress1.getText(), textAddress2.getText(), textSafeword.getText());
+				pass1 = txtPassword.getPassword();
+				password1 = new String(pass1);
+				pass2 = txtConfirmPassword.getPassword();
+				password2 = new String(pass2);
+				if(checkSignUp() > 5) {
+				String gender = (rdbtnFemale.isSelected())? "Female": "Male";
+				Customer.customers.add(new Customer(txtName.getText(), txtEmail.getText(), password1, gender,"12",textPhone.getText(),textAddress1.getText(), textAddress2.getText(), textSafeword.getText()));
+				JOptionPane.showMessageDialog(null,"Sucess!");
+
+				}else if (checkSignUp() == 0) {
+					JOptionPane.showMessageDialog(null,"Please fill up all the required field");
+				}else if (checkSignUp() == 1) {
+					JOptionPane.showMessageDialog(null,"Safeword must exactly 8 character");
+				}else if(checkSignUp() == 2) {
+					JOptionPane.showMessageDialog(null,"Your password not match");
+				}else if(checkSignUp() == 4) {
+					JOptionPane.showMessageDialog(null,"Password must more than 6 character");
+				}else if(checkSignUp() == 6) {
+						JOptionPane.showMessageDialog(null,"Email already exist");
+				}else {
+					JOptionPane.showMessageDialog(null,"Wrong Email Format");
 				}
 			}
 		});
@@ -207,8 +230,40 @@ public class SignUpPage extends JFrame{
 				new ActivityCustomerLogin();
 			}
 		});
+		
+		
 		getContentPane().add(lblSignIn);
+		
+
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+	public int checkSignUp() {
+		pass1 = txtPassword.getPassword();
+		password1 = new String(pass1);
+		pass2 = txtPassword.getPassword();
+		password2 = new String(pass2);
+		char[] safeword = textSafeword.getText().toCharArray();
+		for(Customer customer: Customer.customers) {
+			if(txtEmail.getText().equals(customer.getEmail())) {
+				return 5;
+			}
+		}
+		if(txtName.getText().isEmpty() ||txtEmail.getText().isEmpty()||textPhone.getText().isEmpty() || textAddress1.getText().isEmpty() || password1.isEmpty() || textSafeword.getText().isEmpty()) {
+			return 0;
+		}else if(!(safeword.length == 8)) {
+			return 1;
+		}else if(!password1.equals(password2)){
+			return 2;
+		}else if(!txtEmail.getText().matches("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$")) {
+			return 3;
+		}else if(pass1.length < 7){
+			return 4;
+		}else {
+			return 6;
+		}
+		
+	
+		
 	}
 }

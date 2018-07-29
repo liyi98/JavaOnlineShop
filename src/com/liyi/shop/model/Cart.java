@@ -7,10 +7,10 @@ import java.util.ArrayList;
 public class Cart {
 	private Product item;
 	private Customer customer;
-	private String quantity ;
+	private int quantity ;
 	public static ArrayList<Cart> carts = new ArrayList<>();
 	public Cart() {};
-	public Cart(Product item, Customer customer, String quantity) {
+	public Cart(Product item, Customer customer, int quantity) {
 		this.item = item;
 		this.customer = customer;
 		this.quantity = quantity;
@@ -24,7 +24,7 @@ public class Cart {
 		return customer;
 	}
 	
-	public String getQuantity() {
+	public int getQuantity() {
 		return quantity;
 	}
 	
@@ -36,22 +36,24 @@ public class Cart {
 		this.customer = customer;
 	}
 	
-	public void setQuantity(String quantity) {
+	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 		
 	}
 	
-	public void addCart(Product item, Customer customer, String quantity) {
-		System.out.println(item);
+	public void addCart(Product item, Customer customer, int quantity) {
 		for(Cart cart: carts) {
 			
 		if(item.equals(cart.item)) {
-				quantity+= cart.quantity;
+				cart.quantity+=quantity;
+				return;
 			}
 		}
 		Cart cart = new Cart(item, customer, quantity);
 		carts.add(cart);
 	}
+	
+
 
 	public Cart delCart(int i) {
 		return carts.remove(i) ;

@@ -24,5 +24,18 @@ public class Category {
 	public ArrayList<Product> getAllItems() {
 		return items;
 	}
-
+	
+	public void delProduct(int i) {
+		items.remove(i);
+	}
+	
+	public ArrayList<Product> searchProducts(Category category, String query){
+		ArrayList<Product> tmp = new ArrayList<>();
+		for (Product product : category.getAllItems()) {
+			if(product.getId().contains(query)) {
+				tmp.add(product);
+			}
+		}
+		return tmp;		
+	}
 }

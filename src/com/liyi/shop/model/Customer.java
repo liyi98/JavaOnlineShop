@@ -31,7 +31,7 @@ public class Customer {
 		this.address2 = address2;
 		this.phone = phone;
 		this.safeword = safeword;
-		id = "C"+ i++ + safeword;
+		id = "C"+ i++ + "VIP";
 	   
 	}
 	
@@ -115,12 +115,12 @@ public class Customer {
 		customers.add(c);
 		return c;
 	}
-	
-	public Customer delCustomer(int i){
-		return customers.remove(i);
+
+	public static void delCustomer(int i){
+		customers.remove(i);
 	}
 	
-	public boolean loginC(String email, String password) {
+	public static boolean loginC(String email, String password) {
 		for(Customer c : customers) {
 			if(c.getEmail().equals(email) && c.getPassword().equals(password)){
 				System.out.println("hi");
@@ -139,6 +139,16 @@ public class Customer {
 		}
 		return null;
 		
+	}
+	
+	public static ArrayList<Customer> searchCustomer(String query) {
+		ArrayList<Customer> tmp = new ArrayList<>();
+		for (Customer customer : customers) {
+			if (customer.name.contains(query) || customer.email.contains(query)) {
+				tmp.add(customer);
+			}
+		}
+		return tmp;
 	}
 	
 }

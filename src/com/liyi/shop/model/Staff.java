@@ -79,21 +79,34 @@ public abstract class Staff {
 	public void setPhone(String phone) {
 		this.phone = phone;
 	}
-	public boolean loginS(String email, String password) {
+	public static Staff loginS(String email, String password) {
 		for(Staff s : staffs) {
 			if(s.getEmail().equals(email) && s.getPassword().equals(password)){
-				System.out.println("hi");
 				Template2.staff = s;
-				return true;
+				return s;
 			}
 		}
-		return false;
+		return null;
+	}
+	public static void deleteStaff(int i) {
+		staffs.remove(i);
 	}
 	
+	public static ArrayList<Staff> searchStaff(String query){
+		ArrayList<Staff> tmp = new ArrayList<>();
+		for(Staff staff: staffs) {
+			if(staff.getName().contains(query) || staff.getId().contains(query) ) {
+				tmp.add(staff);
+			}
+				
+		}
+		return tmp;
+	}
 	public int getRole() {
 		// TODO Auto-generated method stub
 		return 0;
 	}
+	
 	
 
 	

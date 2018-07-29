@@ -30,7 +30,7 @@ public class ItemQuantity extends JPanel {
 				if(e.getSource().equals(btnMinus)){
 					if(num>1) {
 					num--;
-					lblNumber.setText(" " + num + "");
+					lblNumber.setText(Integer.toString(num));
 					}
 				}
 				}
@@ -39,7 +39,7 @@ public class ItemQuantity extends JPanel {
 		setLayout(new GridLayout(0, 3, 0, 0));
 		add(btnMinus);
 		
-		lblNumber = new JLabel(" " + num + " ");
+		lblNumber = new JLabel(Integer.toString(num));
 		lblNumber.setHorizontalAlignment(SwingConstants.CENTER);
 		lblNumber.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 18));
 		add(lblNumber);
@@ -55,7 +55,7 @@ public class ItemQuantity extends JPanel {
 				if(e.getSource().equals(btnAdd)) {
 					if(num>=1 && num<=98) {
 						num++;
-						lblNumber.setText(" " + num + "");
+						lblNumber.setText(Integer.toString(num));
 					}
 				}
 			}

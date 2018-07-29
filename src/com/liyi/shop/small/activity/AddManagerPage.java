@@ -6,12 +6,20 @@ import java.awt.SystemColor;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.JButton;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.UIManager;
+
+import com.liyi.shop.model.Customer;
+import com.liyi.shop.model.Manager;
+import com.liyi.shop.model.Staff;
 
 public class AddManagerPage extends JFrame {
 
@@ -24,8 +32,12 @@ public class AddManagerPage extends JFrame {
 	private JTextField textAddress1;
 	private JTextField textAddress2;
 	private JButton btnAdd;
+	private char[] pass1;
+	private String password1;
+	private char[] pass2;
+	private String password2;
 	
-	public AddManagerPage() {
+	public AddManagerPage(JFrame frame, Staff staff) {
 		getContentPane().setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
 		setResizable(false);
 		setTitle("New Manager");
@@ -131,8 +143,43 @@ public class AddManagerPage extends JFrame {
 		lblNewLabel.setFont(new Font("Microsoft JhengHei UI", Font.BOLD, 24));
 		lblNewLabel.setBounds(126, 11, 178, 40);
 		getContentPane().add(lblNewLabel);
-		
+		btnAdd.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				pass1 = txtPassword.getPassword();
+				password1 = new String(pass1);
+				pass2 = txtConfirmPassword.getPassword();
+				password2 = new String(pass2);
+				if(checkSignUp() > 2) {
+					Staff.staffs.add(new Manager(txtName.getText(), txtEmail.getText(),password1, textAddress1.getText(), textAddress2.getText(), textPhone.getText()));
+					JOptionPane.showMessageDialog(null,"Sucess!");
+					}else if (checkSignUp() == 0) {
+						JOptionPane.showMessageDialog(null,"Please fill up all the required field");
+					}else if (checkSignUp() == 1) {
+						JOptionPane.showMessageDialog(null,"Your password not match");
+					}else{
+						JOptionPane.showMessageDialog(null,"Wrong Email Format");
+					}
+			}
+		});
 		setLocationRelativeTo(null);
 		setVisible(true);
+	}
+	public int checkSignUp() {
+		pass1 = txtPassword.getPassword();
+		password1 = new String(pass1);
+		pass2 = txtConfirmPassword.getPassword();
+		password2 = new String(pass2);
+		if(txtName.getText().isEmpty() ||txtEmail.getText().isEmpty()||textPhone.getText().isEmpty() || textAddress1.getText().isEmpty() || password1.isEmpty() ) {
+			return 0;
+		}else if(!password1.equals(password2)){
+			return 1;
+		}else if(!txtEmail.getText().matches("^([_a-zA-Z0-9-]+(\\.[_a-zA-Z0-9-]+)*@[a-zA-Z0-9-]+(\\.[a-zA-Z0-9-]+)*(\\.[a-zA-Z]{1,6}))?$")) {
+			return 2;
+		}else{
+			return 3;
+		}
+		
 	}
 }
