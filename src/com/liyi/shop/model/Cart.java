@@ -41,7 +41,7 @@ public class Cart {
 		
 	}
 	
-	public void addCart(Product item, Customer customer, int quantity) {
+	public static void addCart(Product item, Customer customer, int quantity) {
 		for(Cart cart: carts) {
 			
 		if(item.equals(cart.item)) {
@@ -55,8 +55,8 @@ public class Cart {
 	
 
 
-	public Cart delCart(int i) {
-		return carts.remove(i) ;
+	public static void delCart(int i) {
+		carts.remove(i) ;
 	}
 		
 }

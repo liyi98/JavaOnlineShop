@@ -20,7 +20,8 @@ public class ItemQuantity extends JPanel {
 		JButton btnMinus = new JButton("-");
 		btnMinus.setHorizontalAlignment(SwingConstants.CENTER);
 		Color custom = new Color(255,240,255);
-		btnMinus.setBackground(custom);
+		Color btn = new Color(240, 248, 255);
+		btnMinus.setBackground(btn);
 		btnMinus.setFont(new Font("Microsoft JhengHei Light", Font.BOLD, 14));
 		btnMinus.addActionListener(new ActionListener() {
 			
@@ -46,7 +47,7 @@ public class ItemQuantity extends JPanel {
 		
 		JButton btnAdd = new JButton("+");
 		btnAdd.setHorizontalAlignment(SwingConstants.CENTER);
-		btnAdd.setBackground(custom);
+		btnAdd.setBackground(btn);
 		btnAdd.setFont(new Font("Microsoft YaHei Light", Font.BOLD, 14));
 		btnAdd.addActionListener(new ActionListener() {
 			
