@@ -12,7 +12,10 @@ import java.awt.Dimension;
 
 import javax.swing.ImageIcon;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.awt.event.ActionEvent;
 import javax.swing.SwingConstants;
 import com.jgoodies.forms.layout.FormLayout;
@@ -33,7 +36,9 @@ public class ItemSingle extends JPanel {
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		JLabel lblProductImage = new JLabel("");
 		lblProductImage.setAlignmentX(Component.CENTER_ALIGNMENT);
-		lblProductImage.setIcon(new ImageIcon(item.getPhoto()));
+		ImageIcon icon = new ImageIcon(item.getPhoto());
+		Image newicon = icon.getImage().getScaledInstance(200, 130, Image.SCALE_SMOOTH);
+		lblProductImage.setIcon(new ImageIcon(newicon));
 		add(lblProductImage);
 		add(Box.createRigidArea(new Dimension(10, 8)));
 		
@@ -76,7 +81,13 @@ public class ItemSingle extends JPanel {
 				
 			}
 		});
-
+		lblProductImage.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent arg0) {
+				super.mouseReleased(arg0);
+				new ItemDetails(item);
+			}
+		});
 		btnCart.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 12));
 		btnCart.setAlignmentX(Component.CENTER_ALIGNMENT);
 		btnCart.setSize(50, 25);

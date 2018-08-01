@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -16,19 +18,31 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
+import com.liyi.shop.Main;
+import com.liyi.shop.activities.ActivityManageMen;
+import com.liyi.shop.activities.ActivityManageWomen;
+import com.liyi.shop.model.Category;
+import com.liyi.shop.model.FragileProduct;
+import com.liyi.shop.model.NonFragileProduct;
 import com.liyi.shop.model.Product;
+import com.liyi.shop.model.Staff;
 
 public class EditProduct extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private Product product;
+	private JFrame parent;
 	private JTextField txtPath;
 	private JTextField txtName;
 	private JTextField txtPrice;
 	private JTextField txtWeight;
 	private JTextField txtStock;
+	private Staff staff;
 	
-	public EditProduct(Product product) {
+	public EditProduct( Category category, JFrame parent, Product product, Staff staff) {
+		this.staff = staff;
+		this.parent = parent;
+		this.product = product;
 		getContentPane().setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
 		this.product = product;
 		setResizable(false);
@@ -113,6 +127,12 @@ public class EditProduct extends JFrame{
 		ButtonGroup group = new ButtonGroup();
 		group.add(rdbtnNewRadioButton);
 		group.add(rdbtnNewRadioButton_1);
+	
+		
+		txtPath = new JTextField(product.getPhoto());
+		txtPath.setBounds(235, 95, 135, 20);
+		getContentPane().add(txtPath);
+		txtPath.setColumns(10);
 		
 		if(product.getType() == 1) {
 			rdbtnNewRadioButton.setSelected(true);
@@ -127,19 +147,25 @@ public class EditProduct extends JFrame{
 		btnSave.setBackground(custom);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if(product.getType() == 1 && rdbtnNewRadioButton.isSelected() ) {
+				if((product.getType() == 1 && rdbtnNewRadioButton.isSelected()) || (product.getType() == 2 && rdbtnNewRadioButton_1.isSelected()) ) {
 					product.setName(txtName.getText());
 					product.setPrice(Double.parseDouble(txtPrice.getText()));
+					product.setDescription(textArea.getText());
 					product.setWeight(Double.parseDouble(txtWeight.getText()));
 					product.setStock(Integer.parseInt(txtStock.getText()));
-				}else if(product.getType() == 2 && rdbtnNewRadioButton_1.isSelected()) {
-					product.setName(txtName.getText());
-					product.setPrice(Double.parseDouble(txtPrice.getText()));
-					product.setWeight(Double.parseDouble(txtWeight.getText()));
-					product.setStock(Integer.parseInt(txtStock.getText()));
+				}else if(product.getType() == 1 && rdbtnNewRadioButton_1.isSelected()) {
+					category.getAllItems().remove(product);
+					category.addItem(new NonFragileProduct(txtName.getText(), txtPath.getText(), Double.parseDouble(txtPrice.getText()), textArea.getText(),Double.parseDouble(txtWeight.getText()), Integer.parseInt(txtStock.getText())));
+				}else if(product.getType() == 2 && rdbtnNewRadioButton.isSelected()) {
+					category.getAllItems().remove(product);
+					category.addItem(new FragileProduct(txtName.getText(), txtPath.getText(), Double.parseDouble(txtPrice.getText()), textArea.getText(),Double.parseDouble(txtWeight.getText()), Integer.parseInt(txtStock.getText())));
 				}
-			
-
+				parent.dispose();
+				if(category.equals(Main.women)) {
+				new ActivityManageWomen(staff);
+				}else {
+					new ActivityManageMen(staff);
+				}
 				dispose();
 			}
 		});
@@ -150,11 +176,7 @@ public class EditProduct extends JFrame{
 		lblImage.setBounds(25, 62, 200, 130);
 		lblImage.setIcon(new ImageIcon(product.getPhoto()));
 		getContentPane().add(lblImage);
-		
-		txtPath = new JTextField(product.getPhoto());
-		txtPath.setBounds(235, 95, 135, 20);
-		getContentPane().add(txtPath);
-		txtPath.setColumns(10);
+
 		
 		JButton btnBrowse = new JButton("Browse");
 		btnBrowse.addActionListener(new ActionListener() {
@@ -171,6 +193,50 @@ public class EditProduct extends JFrame{
 	                System.out.println("No Selection ");
 	            }
 			}
+		});
+		txtPrice.addKeyListener(new KeyAdapter() {
+			  @Override
+				  public void keyTyped(KeyEvent e) {
+				      char c = e.getKeyChar();
+				   
+				      if (!((c >= '0') && (c <= '9') || (c == '.') ||
+				         (c == KeyEvent.VK_BACK_SPACE) ||
+				         (c == KeyEvent.VK_DELETE))) {
+				        getToolkit().beep();
+				        e.consume();
+				      }
+				    }
+
+		});
+		
+		txtWeight.addKeyListener(new KeyAdapter() {
+			  @Override
+				  public void keyTyped(KeyEvent e) {
+				      char c = e.getKeyChar();
+				   
+				      if (!((c >= '0') && (c <= '9') || (c == '.') ||
+				         (c == KeyEvent.VK_BACK_SPACE) ||
+				         (c == KeyEvent.VK_DELETE))) {
+				        getToolkit().beep();
+				        e.consume();
+				      }
+				    }
+
+		});
+
+		txtStock.addKeyListener(new KeyAdapter() {
+			  @Override
+				  public void keyTyped(KeyEvent e) {
+				      char c = e.getKeyChar();
+				   
+				      if (!((c >= '0') && (c <= '9') ||
+				         (c == KeyEvent.VK_BACK_SPACE) ||
+				         (c == KeyEvent.VK_DELETE))) {
+				        getToolkit().beep();
+				        e.consume();
+				      }
+				    }
+
 		});
 		btnBrowse.setBackground(btn);
 		btnBrowse.setBounds(255, 126, 100, 23);

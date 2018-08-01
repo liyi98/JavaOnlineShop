@@ -15,7 +15,7 @@ public class Main {
 		Staff.staffs.add(new Manager("12", "12" , "12", "", "",""));
 		women = new Category("women");
 	    men = new Category("men");
-	    women.addItem(new NonFragileProduct("Summer Cozy Women" ,"C:\\Users\\addme\\Documents\\PhotoOnlineShop\\2013-new-hot-summer-fashion-cozy-women-clothes.jpg", 75.99, "", 0.5, 11));
+	    women.addItem(new NonFragileProduct("Summer Cozy Women" ,"C:\\Users\\addme\\Documents\\PhotoOnlineShop\\2013-new-hot-summer-fashion-cozy-women-clothes.jpg", 75.99, "Another interesting use of offscreen images is an automaticdouble buffering. This feature allows to avoid flicker in animated images by drawing an image to a back buffer and then copying that buffer onto the screen instead of drawing directly to the screen.", 0.5, 11));
 		men.addItem(new NonFragileProduct("cfff" ,"C:\\Users\\addme\\Desktop\\Untitled-12.png", 5.99, "",1.1, 50));
 		women.addItem(new NonFragileProduct("Summer -039s" ,"C:\\Users\\addme\\Documents\\PhotoOnlineShop\\2017-new-summer-women-039-s-clothing-high.jpg", 83.99, "", 0.5, 11));
 		men.addItem(new NonFragileProduct("burgesr" , "C:\\Users\\addme\\Desktop\\Untitled-12.png",5.99, "", 0.8, 50));

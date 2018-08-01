@@ -2,9 +2,12 @@ package com.liyi.shop.small.activity;
 
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Image;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
@@ -19,7 +22,13 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
+import com.liyi.shop.Main;
+import com.liyi.shop.activities.ActivityManageMen;
+import com.liyi.shop.activities.ActivityManageWomen;
+import com.liyi.shop.model.Category;
 import com.liyi.shop.model.Customer;
+import com.liyi.shop.model.FragileProduct;
+import com.liyi.shop.model.NonFragileProduct;
 import com.liyi.shop.model.Product;
 import com.liyi.shop.model.Staff;
 
@@ -35,8 +44,9 @@ public class AddProduct extends JFrame{
 	private JTextField txtStock;
 	private Staff staff;
 	private JFrame frame;
+
 	
-	public AddProduct(JFrame frame, Staff staff) {
+	public AddProduct(Category category, JFrame frame, Staff staff) {
 		this.frame = frame;
 		getContentPane().setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
 		setResizable(false);
@@ -53,25 +63,26 @@ public class AddProduct extends JFrame{
 		lblTitle.setBounds(126, 11, 178, 40);
 		getContentPane().add(lblTitle);
 	
+		JRadioButton rdbtnNewRadioButton = new JRadioButton("Fragile");
+		rdbtnNewRadioButton.setBackground(SystemColor.info);
+		rdbtnNewRadioButton.setBounds(150, 450, 109, 23);
+		getContentPane().add(rdbtnNewRadioButton);
 		
+		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Non-Fragile");
+		rdbtnNewRadioButton_1.setBackground(SystemColor.info);
+		rdbtnNewRadioButton_1.setBounds(261, 450, 109, 23);
+		getContentPane().add(rdbtnNewRadioButton_1);
+		
+		ButtonGroup group = new ButtonGroup();
+		group.add(rdbtnNewRadioButton);
+		group.add(rdbtnNewRadioButton_1);
 	
 		JButton btnSave = new JButton("Save");
 		btnSave.setFont(new Font("Microsoft JhengHei Light", Font.BOLD, 13));
 		Color custom = new Color(236, 64, 122);
 		btnSave.setForeground(Color.WHITE);
 		btnSave.setBackground(custom);
-		btnSave.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				/*customer.setName(txtName.getText());
-				customer.setEmail(txtEmail.getText());
-				customer.setPhone(textPhone.getText());
-				customer.setAddress1(textAddress1.getText());
-				customer.setAddress2(textAddress2.getText());
-				String gender = (rdbtnFemale.isSelected())? "Female": "Male";
-				customer.setGender(gender);
-				dispose();*/
-			}
-		});
+	
 		btnSave.setBounds(281, 499, 89, 30);
 		getContentPane().add(btnSave);
 		
@@ -97,7 +108,10 @@ public class AddProduct extends JFrame{
 	            chooser.setAcceptAllFileFilterUsed(true);     
 	            if (chooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
 	                txtPath.setText(chooser.getSelectedFile().toString());
-	                lblImage.setIcon(new ImageIcon(chooser.getSelectedFile().toString()));
+	        		ImageIcon icon = new ImageIcon(chooser.getSelectedFile().toString());
+	        		Image newicon = icon.getImage().getScaledInstance(200, 130, Image.SCALE_SMOOTH);
+	        		lblImage.setIcon(new ImageIcon(newicon));
+	  
 	            } else {
 	                
 	            }
@@ -161,21 +175,68 @@ public class AddProduct extends JFrame{
 		lblType.setBounds(25, 450, 120, 20);
 		getContentPane().add(lblType);
 		
-		JRadioButton rdbtnNewRadioButton = new JRadioButton("Fragile");
-		rdbtnNewRadioButton.setBackground(SystemColor.info);
-		rdbtnNewRadioButton.setBounds(150, 450, 109, 23);
-		getContentPane().add(rdbtnNewRadioButton);
+		btnSave.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				if(rdbtnNewRadioButton.isSelected()) {
+					category.addItem(new FragileProduct(txtName.getText(), txtPath.getText(), Double.parseDouble(txtPrice.getText()), textArea.getText(),Double.parseDouble(txtWeight.getText()), Integer.parseInt(txtStock.getText())));
+				}else {
+					category.addItem(new NonFragileProduct(txtName.getText(), txtPath.getText(), Double.parseDouble(txtPrice.getText()), textArea.getText(),Double.parseDouble(txtWeight.getText()), Integer.parseInt(txtStock.getText())));
+				}
+				frame.dispose();
+				if(category.equals(Main.women)) {
+				new ActivityManageWomen(staff);
+				}else {
+					new ActivityManageMen(staff);
+				}
+				dispose();
+			}
+		});
 		
-		JRadioButton rdbtnNewRadioButton_1 = new JRadioButton("Non-Fragile");
-		rdbtnNewRadioButton_1.setBackground(SystemColor.info);
-		rdbtnNewRadioButton_1.setBounds(261, 450, 109, 23);
-		getContentPane().add(rdbtnNewRadioButton_1);
 		
-		ButtonGroup group = new ButtonGroup();
-		group.add(rdbtnNewRadioButton);
-		group.add(rdbtnNewRadioButton_1);
-		
+		txtPrice.addKeyListener(new KeyAdapter() {
+			  @Override
+				  public void keyTyped(KeyEvent e) {
+				      char c = e.getKeyChar();
+				   
+				      if (!((c >= '0') && (c <= '9') || (c == '.') ||
+				         (c == KeyEvent.VK_BACK_SPACE) ||
+				         (c == KeyEvent.VK_DELETE))) {
+				        getToolkit().beep();
+				        e.consume();
+				      }
+				    }
 
+		});
+		
+		txtWeight.addKeyListener(new KeyAdapter() {
+			  @Override
+				  public void keyTyped(KeyEvent e) {
+				      char c = e.getKeyChar();
+				   
+				      if (!((c >= '0') && (c <= '9') || (c == '.') ||
+				         (c == KeyEvent.VK_BACK_SPACE) ||
+				         (c == KeyEvent.VK_DELETE))) {
+				        getToolkit().beep();
+				        e.consume();
+				      }
+				    }
+
+		});
+
+		txtStock.addKeyListener(new KeyAdapter() {
+			  @Override
+				  public void keyTyped(KeyEvent e) {
+				      char c = e.getKeyChar();
+				   
+				      if (!((c >= '0') && (c <= '9') ||
+				         (c == KeyEvent.VK_BACK_SPACE) ||
+				         (c == KeyEvent.VK_DELETE))) {
+				        getToolkit().beep();
+				        e.consume();
+				      }
+				    }
+
+		});
 		setLocationRelativeTo(null);
 		setVisible(true);
 
