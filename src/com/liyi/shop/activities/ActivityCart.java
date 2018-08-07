@@ -4,6 +4,8 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 
 import javax.swing.AbstractAction;
 import javax.swing.ImageIcon;
@@ -13,37 +15,29 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
+import com.liyi.shop.component.CartList;
 import com.liyi.shop.component.TableButton;
 import com.liyi.shop.model.Cart;
 import com.liyi.shop.model.Customer;
+import com.liyi.shop.model.Order;
+import com.liyi.shop.model.OrderItem;
+
 import java.awt.Font;
 import javax.swing.ListSelectionModel;
 import javax.swing.border.LineBorder;
+import javax.swing.SwingConstants;
+import javax.swing.UIManager;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JButton;
 
 public class ActivityCart extends JFrame {
-	public Customer c;
-	public JLabel lblHome;
-	public static JLabel lblNum;
 	private static final long serialVersionUID = 1L;
-	private JTable tableCart;
-	private String []columnName = {"Image", "Price", "Weight", "-","Quantity","+", "Subtotal", "Delete"};
-	private Object [][] row;
-	private double subtotal;
+	private JLabel lblTotal;
+	private JLabel lblShipping;
+	private JLabel lblSum;
+	private JButton btnCheckout;
 	
 	public ActivityCart() {
-		row = new Object[Cart.carts.size()][8];
-		/*for(int i = 0; i < row.length; i++) {
-			Cart current = Cart.carts.get(i);
-			row[i][0] = current.getItem().getPhoto();
-			row[i][1] = current.getItem().getPrice();
-			row[i][2] = current.getItem().getWeight();
-			row[i][3] = "-";
-			row[i][4] = current.getQuantity();
-			row[i][5] = "+";
-			row[i][6] = "+";
-			row[i][7] = "delete";
-		}*/
-
 	
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		getContentPane().setLayout(null);
@@ -55,98 +49,111 @@ public class ActivityCart extends JFrame {
 		
 		Template1 menubar = new Template1(this);
 		getContentPane().add(menubar);
-		
+		CartList cart = new CartList(this);
+		Color btn = new Color(236, 64, 122);
 
-		
-	      DefaultTableModel model = new DefaultTableModel(row, columnName)
-	        {
-				public Class getColumnClass(int column)
-	            {
-	                return getValueAt(0, column).getClass();
-	            }
-	        };
-	    tableCart = new JTable( model );
-	    tableCart.setShowVerticalLines(false);
-	    tableCart.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
-	    tableCart.setFont(new Font("Microsoft YaHei Light", Font.PLAIN, 13));
-	    tableCart.setBounds(31, 89, 734, 337);
-	    tableCart.setRowHeight(80);
-	    tableCart.setDefaultEditor(Object.class, null);
-		tableCart.getColumnModel().getColumn(0).setPreferredWidth(120);
-		tableCart.getColumnModel().getColumn(5).setPreferredWidth(35);
-		getContentPane().add(tableCart);
-		JScrollPane scroll1 = new JScrollPane(tableCart);
-		scroll1.setViewportBorder(null);
-		scroll1.setBounds(31, 89, 734, 337);
+		JScrollPane scroll1 = new JScrollPane(cart);
+		scroll1.setViewportBorder(new EmptyBorder(0, 0, 0, 0));
+		scroll1.setBounds(31, 95, 734, 337);
 		scroll1.getVerticalScrollBar().setPreferredSize(new Dimension(4,2));
 		getContentPane().add(scroll1);
 		
+		JLabel lblImage = new JLabel("Image");
+		lblImage.setForeground(Color.BLACK);
+		lblImage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblImage.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 12));
+		lblImage.setBounds(43, 70, 103, 18);
+		getContentPane().add(lblImage);
 		
-		for(int i = 0; i < Cart.carts.size(); i++) {
-			Cart current = Cart.carts.get(i);
-			ImageIcon image =new ImageIcon(current.getItem().getPhoto());
-			Image newimage = image.getImage().getScaledInstance(120, 80, Image.SCALE_SMOOTH );
-			tableCart.getModel().setValueAt(new ImageIcon(newimage), i, 0);
-			tableCart.getModel().setValueAt(current.getItem().getPrice(), i, 1);
-			tableCart.getModel().setValueAt(current.getItem().getWeight(), i, 2);
-			tableCart.getModel().setValueAt("-", i, 3);
-			tableCart.getModel().setValueAt(current.getQuantity(), i, 4);
-			tableCart.getModel().setValueAt("+", i, 5);
-			subtotal = current.getItem().getPrice() * current.getQuantity() ;
-			tableCart.getModel().setValueAt(subtotal, i, 6);
-			tableCart.getModel().setValueAt("x", i, 7);
-
+		JLabel lblProductName = new JLabel("Product Name");
+		lblProductName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblProductName.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 12));
+		lblProductName.setBounds(185, 70, 100, 18);
+		getContentPane().add(lblProductName);
+		
+		JLabel lblPrice = new JLabel("Price(RM)");
+		lblPrice.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 12));
+		lblPrice.setHorizontalAlignment(SwingConstants.CENTER);
+		lblPrice.setBounds(335, 70, 60, 18);
+		getContentPane().add(lblPrice);
+		
+		JLabel lblWeight = new JLabel("Weight(kg)");
+		lblWeight.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWeight.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 12));
+		lblWeight.setBounds(423, 70, 80, 18);
+		getContentPane().add(lblWeight);
+		
+		JLabel lblQuantity = new JLabel("Quantity");
+		lblQuantity.setHorizontalAlignment(SwingConstants.CENTER);
+		lblQuantity.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 12));
+		lblQuantity.setBounds(515, 70, 100, 18);
+		getContentPane().add(lblQuantity);
+		
+		JLabel lblSubtotal = new JLabel("Subtotal");
+		lblSubtotal.setHorizontalAlignment(SwingConstants.CENTER);
+		lblSubtotal.setFont(new Font("Arial", Font.BOLD | Font.ITALIC, 12));
+		lblSubtotal.setBounds(625, 70, 100, 18);
+		getContentPane().add(lblSubtotal);
+		
+		JLabel lblTotalLabel = new JLabel("Total:");
+		lblTotalLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblTotalLabel.setBounds(31, 453, 100, 18);
+		getContentPane().add(lblTotalLabel);
+		
+		JLabel lblFeeLabel = new JLabel("Shipping Fee:");
+		lblFeeLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblFeeLabel.setBounds(31, 482, 100, 18);
+		getContentPane().add(lblFeeLabel);
+		
+		btnCheckout = new JButton("Checkout");
+		btnCheckout.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 11));
+		btnCheckout.setBounds(672, 510, 89, 25);
+		btnCheckout.setBackground(btn);
+		btnCheckout.setForeground(Color.WHITE);
+		btnCheckout.setFocusable(false);
+		getContentPane().add(btnCheckout);
+		
+		JLabel lblSumLabel = new JLabel("Sum:");
+		lblSumLabel.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblSumLabel.setBounds(31, 510, 100, 18);
+		getContentPane().add(lblSumLabel);
+	
+		lblTotal = new JLabel();
+		lblTotal.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblTotal.setBounds(132, 455, 100, 14);
+		getContentPane().add(lblTotal);
+		
+		lblShipping = new JLabel();
+		lblShipping.setFont(new Font("Arial", Font.PLAIN, 13));
+		lblShipping.setBounds(132, 484, 100, 14);
+		getContentPane().add(lblShipping);
+		
+		lblSum = new JLabel();
+		lblSum.setFont(new Font("Arial", Font.BOLD, 13));
+		lblSum.setBounds(132, 510, 100, 18);
+		getContentPane().add(lblSum);
+		
+		refresh();
+		
+		btnCheckout.addActionListener(new ActionListener() {
 			
-		}
-		new TableButton(tableCart, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				int index = Integer.parseInt(e.getActionCommand());
-				Cart newCart =  Cart.carts.get(index);
-				int i = newCart.getQuantity();
-				if( i > 1) {
-				i--;
-				subtotal = i * newCart.getItem().getPrice();
-				tableCart.getModel().setValueAt(i, index, 4);
-				tableCart.getModel().setValueAt(subtotal, index, 6);
-				newCart.setQuantity(i);
-				}else {
-					
-				}
+				Template1.c.getAllOrder().add(new Order(Template1.c));
 				
-		
 			}
-		}, 3);
-		new TableButton(tableCart, new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				int index = Integer.parseInt(e.getActionCommand());
-				Cart newCart =  Cart.carts.get(index);
-				int i = newCart.getQuantity();
-				if( i >= 1) {
-				i++;
-				subtotal = i * newCart.getItem().getPrice();
-				tableCart.getModel().setValueAt(i, index, 4);
-				tableCart.getModel().setValueAt(subtotal, index, 6);
-				newCart.setQuantity(i);
-				}else {
-					
-				}
-				
-		
-			}
-		}, 5);
-		new TableButton(tableCart, new AbstractAction() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				Cart.delCart(Integer.parseInt(e.getActionCommand()));
-				dispose();
-				new ActivityCart();
-			}
-		}, 7);
-
-
+		});
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
+	
+	public void refresh() {
+		String total = new DecimalFormat("RM #,##0.00").format(Template1.c.getCart().getTotal());	
+		String fee = new DecimalFormat("RM #,##0.00").format(Template1.c.getCart().getTotalShippingFee());
+		String sum = new DecimalFormat("RM #,##0.00").format(Template1.c.getCart().getSum());
+		lblTotal.setText(total);
+		lblShipping.setText(fee);
+		lblSum.setText(sum);
+	}
+
 }

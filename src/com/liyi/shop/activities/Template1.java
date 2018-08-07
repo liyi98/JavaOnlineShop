@@ -83,10 +83,16 @@ public class Template1 extends JPanel {
 		});
 		add(lblSignIn);
 		
-		lblNum = new JLabel("(" + Cart.carts.size() + ")");
+		lblNum = new JLabel();
 		lblNum.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
 		lblNum.setBounds(500, 18, 20, 16);
 		add(lblNum);
+		
+		if(c != null) {
+			lblNum.setText("(" + c.getCart().getCartitems().size() +")");
+		}else {
+			lblNum.setText("(0)");
+		}
 		
 		JLabel lblCart = new JLabel("");
 		lblCart.setIcon(new ImageIcon("C:\\Users\\addme\\Documents\\PhotoOnlineShop\\shopping_cart_PNG38.png"));
@@ -137,6 +143,13 @@ public class Template1 extends JPanel {
 		
 		if (c != null) {
 			lblUsername.setText(c.getName());
+			lblUsername.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseReleased(MouseEvent e) {
+					new CustomerProfile();
+					parent.dispose();
+				}
+			});
 			lblLogOut.setVisible(true);
 			lblSignIn.setVisible(false);
 		}else {

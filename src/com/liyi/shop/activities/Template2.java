@@ -1,32 +1,18 @@
 package com.liyi.shop.activities;
 
 import java.awt.Color;
-
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTable;
-
-import com.liyi.shop.component.TableButton;
-import com.liyi.shop.model.Customer;
-import com.liyi.shop.model.Staff;
-
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.beans.PropertyChangeListener;
 
-import javax.swing.JToolBar;
-import javax.swing.AbstractAction;
-import javax.swing.Action;
 import javax.swing.JButton;
-import javax.swing.JTextField;
-import java.awt.FlowLayout;
-import javax.swing.BoxLayout;
-import net.miginfocom.swing.MigLayout;
-import java.awt.CardLayout;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+
+import com.liyi.shop.model.Staff;
 
 public class Template2 extends JPanel{
 	private JFrame parent;

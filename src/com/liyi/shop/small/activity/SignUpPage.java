@@ -2,7 +2,6 @@ package com.liyi.shop.small.activity;
 
 import java.awt.Color;
 import java.awt.Font;
-import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
@@ -18,7 +17,6 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
-import com.liyi.shop.activities.ActivityAdminCustomer;
 import com.liyi.shop.activities.ActivityCustomerLogin;
 import com.liyi.shop.model.Customer;
 
@@ -41,7 +39,7 @@ public class SignUpPage extends JFrame{
 	private String password1;
 	private char[] pass2;
 	private String password2;
-	private int[] year;
+
 
 
 	public SignUpPage() {

@@ -10,8 +10,6 @@ import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
@@ -19,6 +17,8 @@ import javax.swing.SwingConstants;
 import com.liyi.shop.model.Customer;
 
 public class EditCustomer extends JFrame{
+
+	private static final long serialVersionUID = 1L;
 	private JTextField txtName;
 	private JTextField txtEmail;
 	private JTextField textBirthday;
@@ -26,10 +26,9 @@ public class EditCustomer extends JFrame{
 	private JTextField textAddress1;
 	private JTextField textAddress2;
 	private JTextField textSafeword;
-	private Customer customer;
+
 	
 	public EditCustomer(Customer customer) {
-		this.customer = customer;
 		setResizable(false);
 		setTitle("Edit Customer");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);

@@ -18,7 +18,7 @@ public class ActivityCategory extends JFrame{
 		setSize(800,600);
 		Template1 menubar = new Template1(this);
 		getContentPane().add(menubar);
-		Color bk = new Color(255, 205, 210);
+		Color bk = new Color(255, 235, 238);
 		getContentPane().setBackground(bk);
 		this.category = category;
 		setTitle(category);

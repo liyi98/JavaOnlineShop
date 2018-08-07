@@ -2,7 +2,7 @@ package com.liyi.shop.model;
 
 import java.util.ArrayList;
 
-import com.liyi.shop.activities.ActivityHomePage;
+
 import com.liyi.shop.activities.Template1;
 
 public class Customer {
@@ -18,6 +18,8 @@ public class Customer {
 	private String safeword;
 	private static int i = 1;
 	public static ArrayList<Customer> customers = new ArrayList<>();
+	private ArrayList<Order> orders = new ArrayList<>();
+	private Cart cart = new Cart();
 	
 	public Customer(){}
 	
@@ -41,6 +43,10 @@ public class Customer {
 	
 	public String getName() {
 		return name;
+	}
+	
+	public Cart getCart() {
+		return cart;
 	}
 	
 	public String getEmail() {
@@ -75,6 +81,13 @@ public class Customer {
 		return bod;
 	}
 	
+	public ArrayList<Order> getAllOrder(){
+		return orders;
+	}
+	public void setCart(Cart cart) {
+		this.cart = cart;
+	}
+
 	public void setName(String name) {
 		this.name = name;
 	}
@@ -151,4 +164,6 @@ public class Customer {
 		return tmp;
 	}
 	
+
+
 }

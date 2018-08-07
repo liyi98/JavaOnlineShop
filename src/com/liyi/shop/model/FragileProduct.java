@@ -14,7 +14,5 @@ public class FragileProduct extends Product{
 	public double calShippingFee() {
 		double fee = weight * FRAGILE_SHIPPING_FEE ;
 		return fee;
-		
-		
 	}
 }

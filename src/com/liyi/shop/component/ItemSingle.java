@@ -25,7 +25,9 @@ import com.jgoodies.forms.layout.RowSpec;
 import com.liyi.shop.activities.ActivityCustomerLogin;
 import com.liyi.shop.activities.Template1;
 import com.liyi.shop.model.Cart;
+import com.liyi.shop.model.CartItem;
 import com.liyi.shop.model.Product;
+import com.sun.org.apache.xalan.internal.xsltc.compiler.Template;
 
 public class ItemSingle extends JPanel {
 
@@ -78,16 +80,12 @@ public class ItemSingle extends JPanel {
 				JOptionPane.showMessageDialog(null,"Please Login to Proceed ", "Login", 2);				
 					
 				}else {
-				Cart.addCart(item, Template1.c, 1);
+				Template1.c.getCart().getCartitems().add(new CartItem(item,1));
+				
 				}
 			
-				Template1.lblNum.setText("(" + Cart.carts.size() + ")" );
-				for(int i = 0; i<Cart.carts.size();i++)
-				{
-					System.out.println(Cart.carts.get(i).getItem().getName());
-					System.out.println(Cart.carts.get(i).getQuantity());
-					
-				}
+				Template1.lblNum.setText("(" + Template1.c.getCart().getCartitems().size() + ")" );
+		
 				
 				
 			}

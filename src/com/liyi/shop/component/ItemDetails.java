@@ -7,6 +7,7 @@ import javax.swing.JFrame;
 import com.liyi.shop.activities.ActivityCustomerLogin;
 import com.liyi.shop.activities.Template1;
 import com.liyi.shop.model.Cart;
+import com.liyi.shop.model.CartItem;
 import com.liyi.shop.model.Product;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -97,9 +98,9 @@ public class ItemDetails extends JFrame {
 					}
 					
 				}else {
-					Cart.addCart(item, Template1.c, Integer.parseInt(quantity.lblNumber.getText()));
+					Template1.c.getCart().getCartitems().add(new CartItem(item ,Integer.parseInt(quantity.lblNumber.getText())));
 				}
-				Template1.lblNum.setText("(" + Cart.carts.size() + ")" );
+				Template1.lblNum.setText("(" + Template1.c.getCart().getCartitems().size() + ")" );
 			}
 		});
 		btnCart.setBounds(380, 115, 89, 30);

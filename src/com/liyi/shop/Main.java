@@ -43,6 +43,7 @@ public class Main {
 		Customer.addCustomer("Chow Khai Bin", "khaibin","1", "1", "1", "hi","hi", "hh", "ss");
 		Customer.addCustomer("k", "1","j", "1","1", "hi", "hi", "hh", "ss");
 		Customer.addCustomer("k", "1","j", "1","1", "hi", "hi", "hh", "11");
+
 	
 		new ActivityHomePage();
 		//for(int u = 0; u<Item.searchItemByName("b").size(); u++){

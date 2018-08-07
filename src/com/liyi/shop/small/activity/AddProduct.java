@@ -15,24 +15,18 @@ import javax.swing.JButton;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.SwingConstants;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.liyi.shop.Main;
 import com.liyi.shop.activities.ActivityManageMen;
 import com.liyi.shop.activities.ActivityManageWomen;
 import com.liyi.shop.model.Category;
-import com.liyi.shop.model.Customer;
 import com.liyi.shop.model.FragileProduct;
 import com.liyi.shop.model.NonFragileProduct;
-import com.liyi.shop.model.Product;
 import com.liyi.shop.model.Staff;
-
-import javax.swing.JTextArea;
 
 public class AddProduct extends JFrame{
 
@@ -42,12 +36,10 @@ public class AddProduct extends JFrame{
 	private JTextField txtPrice;
 	private JTextField txtWeight;
 	private JTextField txtStock;
-	private Staff staff;
-	private JFrame frame;
+
 
 	
 	public AddProduct(Category category, JFrame frame, Staff staff) {
-		this.frame = frame;
 		getContentPane().setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
 		setResizable(false);
 		setTitle("Add Product");

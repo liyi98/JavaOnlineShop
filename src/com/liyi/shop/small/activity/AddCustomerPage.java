@@ -1,32 +1,28 @@
 package com.liyi.shop.small.activity;
 
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
 import java.awt.Color;
 import java.awt.Font;
-import javax.swing.UIManager;
+import java.awt.SystemColor;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.swing.ButtonGroup;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPasswordField;
+import javax.swing.JRadioButton;
+import javax.swing.JTextField;
+import javax.swing.SwingConstants;
 
 import com.liyi.shop.activities.ActivityAdminCustomer;
-import com.liyi.shop.activities.ActivityCustomerLogin;
 import com.liyi.shop.model.Customer;
 import com.liyi.shop.model.Staff;
 
-import javax.swing.SwingConstants;
-import javax.swing.JTextField;
-import java.awt.SystemColor;
-import javax.swing.JRadioButton;
-import javax.swing.ButtonGroup;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.ActionEvent;
-
 public class AddCustomerPage extends JFrame{
+
+	private static final long serialVersionUID = 1L;
 	private JTextField txtName;
 	private JTextField txtEmail;
 	private JPasswordField txtPassword;
