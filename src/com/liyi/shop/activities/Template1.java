@@ -5,6 +5,7 @@ import java.awt.Component;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.text.ParseException;
 
 import javax.swing.JFrame;
 import javax.swing.JLabel;
@@ -146,7 +147,12 @@ public class Template1 extends JPanel {
 			lblUsername.addMouseListener(new MouseAdapter() {
 				@Override
 				public void mouseReleased(MouseEvent e) {
-					new CustomerProfile();
+					try {
+						new CustomerProfile();
+					} catch (ParseException e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
 					parent.dispose();
 				}
 			});

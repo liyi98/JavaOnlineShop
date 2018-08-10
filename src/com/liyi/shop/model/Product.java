@@ -15,6 +15,8 @@ public abstract class Product {
 	protected double weight;
 	private int stock;
 	private static int i = 1;
+	private ArrayList<Rate> rates = new ArrayList<>();
+	
 	
 	public Product(String name, String photo, double price, String description, double weight, int stock){
 		this.name = name;
@@ -24,6 +26,7 @@ public abstract class Product {
 		this.weight = weight;
 		this.stock = stock;
 		id = "P"+ i++ ;
+		rates.add(new Rate(0, null));
 	}
 	
 	public String getId(){
@@ -42,6 +45,19 @@ public abstract class Product {
 		return price;
 	}
 	
+	public ArrayList<Rate> getRates() {
+		return rates;
+	}
+	public double getAverageRate() {
+		int i = 0;
+		for(Rate rate : rates) {
+			i += rate.getRate();
+		}
+		System.out.println(i);
+		double averageRate = i / rates.size();
+		System.out.println(averageRate);
+		return averageRate;
+	}
 	public String getDescription() {
 		return description;
 	}
@@ -76,6 +92,10 @@ public abstract class Product {
 	
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+	
+	public void addRate(Rate rate) {
+		rates.add(rate);
 	}
 	
 	public double calShippingFee() {

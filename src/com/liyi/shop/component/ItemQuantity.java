@@ -20,8 +20,9 @@ public class ItemQuantity extends JPanel {
 		JButton btnMinus = new JButton("-");
 		btnMinus.setHorizontalAlignment(SwingConstants.CENTER);
 		Color custom = new Color(255,240,255);
-		Color btn = new Color(240, 248, 255);
+		Color btn = new Color(236, 64, 122);
 		btnMinus.setBackground(btn);
+		btnMinus.setForeground(Color.WHITE);
 		btnMinus.setFont(new Font("Microsoft JhengHei Light", Font.BOLD, 14));
 		btnMinus.addActionListener(new ActionListener() {
 			
@@ -42,13 +43,14 @@ public class ItemQuantity extends JPanel {
 		
 		lblNumber = new JLabel(Integer.toString(num));
 		lblNumber.setHorizontalAlignment(SwingConstants.CENTER);
-		lblNumber.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 18));
+		lblNumber.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 18));
 		add(lblNumber);
 		
 		JButton btnAdd = new JButton("+");
 		btnAdd.setHorizontalAlignment(SwingConstants.CENTER);
 		btnAdd.setBackground(btn);
 		btnAdd.setFont(new Font("Microsoft YaHei Light", Font.BOLD, 14));
+		btnAdd.setForeground(Color.WHITE);
 		btnAdd.addActionListener(new ActionListener() {
 			
 			@Override

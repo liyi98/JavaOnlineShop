@@ -19,6 +19,10 @@ import javax.swing.SwingConstants;
 
 import com.liyi.shop.activities.ActivityCustomerLogin;
 import com.liyi.shop.model.Customer;
+import com.toedter.calendar.JCalendar;
+import com.toedter.calendar.JDateChooser;
+
+import javax.swing.border.LineBorder;
 
 
 public class SignUpPage extends JFrame{
@@ -35,6 +39,7 @@ public class SignUpPage extends JFrame{
 	private JTextField textAddress2;
 	private JTextField textSafeword;
 	private JLabel lblSignIn;
+	private JDateChooser calendar;
 	private char[] pass1;
 	private String password1;
 	private char[] pass2;
@@ -181,6 +186,11 @@ public class SignUpPage extends JFrame{
 		lblNewLabel.setBounds(150, 466, 240, 12);
 		getContentPane().add(lblNewLabel);
 		
+		calendar = new JDateChooser();
+		calendar.setSize(220, 20);
+		calendar.setLocation(150, 280);
+		getContentPane().add(calendar);
+		
 		JButton btnSignUp = new JButton("Sign Up");
 		Color custom = new Color(236, 64, 122);
 		btnSignUp.setForeground(Color.WHITE);
@@ -194,7 +204,8 @@ public class SignUpPage extends JFrame{
 				password2 = new String(pass2);
 				if(checkSignUp() > 5) {
 				String gender = (rdbtnFemale.isSelected())? "Female": "Male";
-				Customer.customers.add(new Customer(txtName.getText(), txtEmail.getText(), password1, gender,"12",textPhone.getText(),textAddress1.getText(), textAddress2.getText(), textSafeword.getText()));
+				String dob = calendar.getDate().getDate()+ "-" + (calendar.getDate().getMonth() + 1) + "-" + (1900 + calendar.getDate().getYear());
+				Customer.customers.add(new Customer(txtName.getText(), txtEmail.getText(), password1, gender,dob ,textPhone.getText(),textAddress1.getText(), textAddress2.getText(), textSafeword.getText()));
 				JOptionPane.showMessageDialog(null,"Sucess!");
 
 				}else if (checkSignUp() == 0) {
@@ -232,6 +243,11 @@ public class SignUpPage extends JFrame{
 		
 		getContentPane().add(lblSignIn);
 		
+		JLabel lbldob = new JLabel("Birthday");
+		lbldob.setHorizontalAlignment(SwingConstants.LEFT);
+		lbldob.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
+		lbldob.setBounds(25, 280, 120, 20);
+		getContentPane().add(lbldob);		
 
 		setLocationRelativeTo(null);
 		setVisible(true);

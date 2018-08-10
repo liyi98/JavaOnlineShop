@@ -19,7 +19,7 @@ public class ActivityHomePage extends JFrame{
 		getContentPane().setLayout(null);
 		setResizable(false);
 		setSize(800,600);
-		Color bk = new Color(255, 205, 210);
+		Color bk = new Color(255, 235, 238);
 		getContentPane().setBackground(bk);
 		setTitle("Home");
 		Template1 menubar = new Template1(this);

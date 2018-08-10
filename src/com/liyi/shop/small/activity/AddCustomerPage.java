@@ -19,6 +19,7 @@ import javax.swing.SwingConstants;
 import com.liyi.shop.activities.ActivityAdminCustomer;
 import com.liyi.shop.model.Customer;
 import com.liyi.shop.model.Staff;
+import com.toedter.calendar.JDateChooser;
 
 public class AddCustomerPage extends JFrame{
 
@@ -27,15 +28,16 @@ public class AddCustomerPage extends JFrame{
 	private JTextField txtEmail;
 	private JPasswordField txtPassword;
 	private JPasswordField txtConfirmPassword;
-	private JTextField textBirthday;
 	private JTextField textPhone;
 	private JTextField textAddress1;
 	private JTextField textAddress2;
 	private JTextField textSafeword;
+	private JDateChooser calendar;
 	private char[] pass1;
 	private String password1;
 	private char[] pass2;
 	private String password2;
+	
 	public AddCustomerPage(JFrame frame, Staff staff) {
 		setResizable(false);
 		setTitle("New Customer");
@@ -134,17 +136,16 @@ public class AddCustomerPage extends JFrame{
 		txtConfirmPassword.setBounds(150, 199, 220, 20);
 		getContentPane().add(txtConfirmPassword);
 		
-		textBirthday = new JTextField();
-		textBirthday.setColumns(10);
-		textBirthday.setBackground(SystemColor.controlLtHighlight);
-		textBirthday.setBounds(150, 279, 220, 20);
-		getContentPane().add(textBirthday);
-		
 		textPhone = new JTextField();
 		textPhone.setColumns(10);
 		textPhone.setBackground(SystemColor.controlLtHighlight);
 		textPhone.setBounds(150, 320, 220, 20);
 		getContentPane().add(textPhone);
+		
+		calendar = new JDateChooser();
+		calendar.setSize(220, 20);
+		calendar.setLocation(150, 280);
+		getContentPane().add(calendar);
 		
 		textAddress1 = new JTextField();
 		textAddress1.setColumns(10);
@@ -197,9 +198,11 @@ public class AddCustomerPage extends JFrame{
 				password1 = new String(pass1);
 				pass2 = txtPassword.getPassword();
 				password2 = new String(pass2);
+				
 				if(checkSignUp() > 4) {
 				String gender = (rdbtnFemale.isSelected())? "Female": "Male";
-				Customer.customers.add(new Customer(txtName.getText(), txtEmail.getText(), password1, gender,"12",textPhone.getText(),textAddress1.getText(), textAddress2.getText(), textSafeword.getText()));
+				String dob = calendar.getDate().getDate()+ "-" + (calendar.getDate().getMonth() + 1) + "-" + (1900 + calendar.getDate().getYear());
+				Customer.customers.add(new Customer(txtName.getText(), txtEmail.getText(), password1, gender,dob ,textPhone.getText(),textAddress1.getText(), textAddress2.getText(), textSafeword.getText()));
 				JOptionPane.showMessageDialog(null,"Sucess!");
 				frame.dispose();
 				new ActivityAdminCustomer(staff);
@@ -224,7 +227,7 @@ public class AddCustomerPage extends JFrame{
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}
-	public int checkSignUp() {
+	private int checkSignUp() {
 		pass1 = txtPassword.getPassword();
 		password1 = new String(pass1);
 		pass2 = txtPassword.getPassword();

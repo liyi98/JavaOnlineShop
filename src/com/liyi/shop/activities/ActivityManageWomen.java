@@ -12,10 +12,10 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.liyi.shop.Main;
+import com.liyi.shop.component.CustomTextField;
 import com.liyi.shop.component.TableButton;
 import com.liyi.shop.model.Category;
 import com.liyi.shop.model.Customer;
@@ -28,7 +28,7 @@ import com.liyi.shop.small.activity.EditProduct;
 
 public class ActivityManageWomen extends JFrame{
 	private static final long serialVersionUID = 1L;
-	private JTextField txtSearch;
+	private CustomTextField txtSearch;
 	public static Staff staff;
 	private JTable tablewomen;
 	private String[] columnName = {"ID", "Name", "Price", "Stock", "Action", "Action"};	
@@ -63,8 +63,7 @@ public class ActivityManageWomen extends JFrame{
 		btnAddProduct.setBackground(btn);
 		getContentPane().add(btnAddProduct);
 		
-		txtSearch = new JTextField();
-		txtSearch.setText("Search");
+		txtSearch = new CustomTextField("Search");
 		txtSearch.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtSearch.setBounds(26, 115, 670, 30);
 		getContentPane().add(txtSearch);

@@ -9,6 +9,8 @@ import com.liyi.shop.activities.Template1;
 import com.liyi.shop.model.Cart;
 import com.liyi.shop.model.CartItem;
 import com.liyi.shop.model.Product;
+import com.liyi.shop.model.Rate;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 
@@ -21,6 +23,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JTextField;
 import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
+import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
 
 public class ItemDetails extends JFrame {
@@ -31,7 +34,7 @@ public class ItemDetails extends JFrame {
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setResizable(false);
-		setSize(500,300);
+		setSize(500,450);
 		Color bk = new Color(255, 235, 238);
 		Color txt = new Color(252,228,236);
 		getContentPane().setBackground(bk);
@@ -51,7 +54,7 @@ public class ItemDetails extends JFrame {
 		
 		JLabel lblPrice = new JLabel("RM " + item.getPrice());
 		lblPrice.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
-		lblPrice.setBounds(235, 45, 200, 20);
+		lblPrice.setBounds(235, 45, 135, 20);
 		getContentPane().add(lblPrice);
 		
 		JLabel lblWeight = new JLabel("Weight");
@@ -70,6 +73,7 @@ public class ItemDetails extends JFrame {
 		lblDescription.setLineWrap(true);
 		lblDescription.setBackground(txt);
 		getContentPane().add(lblDescription);
+		
 		
 		quantity = new ItemQuantity();
 		quantity.setSize(135, 30);
@@ -104,7 +108,7 @@ public class ItemDetails extends JFrame {
 			}
 		});
 		btnCart.setBounds(380, 115, 89, 30);
-		Color custom = new Color(229,115,115);
+		Color custom = new Color(236, 64, 122);
 		btnCart.setForeground(Color.WHITE);
 		btnCart.setBackground(custom);
 		getContentPane().add(btnCart);
@@ -115,6 +119,9 @@ public class ItemDetails extends JFrame {
 		lblimg.setBounds(342, 246, 15, 15);
 		getContentPane().add(lblimg);
 		
+		StarRating star = new StarRating();
+		star.setLocation(10, 312);
+		getContentPane().add(star);
 		JLabel lblType = new JLabel("New label");
 		lblType.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 10));
 		lblType.setBounds(10, 246, 200, 15);
@@ -124,6 +131,29 @@ public class ItemDetails extends JFrame {
 		lblDescription_1.setFont(new Font("Microsoft JhengHei Light", Font.BOLD, 11));
 		lblDescription_1.setBounds(10, 152, 76, 14);
 		getContentPane().add(lblDescription_1);
+		
+		JButton btnRate = new JButton("Rate");
+		btnRate.setBounds(149, 308, 89, 23);
+		getContentPane().add(btnRate);
+		
+		System.out.println(item.getAverageRate());
+		String averageRate = new DecimalFormat("#0.#").format(item.getAverageRate());
+		JLabel lblRatings = new JLabel(averageRate);
+		lblRatings.setBounds(390, 49, 46, 14);
+		getContentPane().add(lblRatings);
+		
+		if(Template1.c != null){
+			btnRate.setEnabled(true);
+		}else {
+			btnRate.setEnabled(false);
+		}
+		btnRate.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				item.addRate(new Rate(star.getRate(), Template1.c));
+			}
+		});
 		
 		if(item.getType() == 1) {
 			lblType.setText("Fragile Shipping Fee: RM 10/kg");

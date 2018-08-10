@@ -52,7 +52,7 @@ public class ActivityStaffLogin extends JFrame{
 					dispose();
 				}else {
 					new ActivityManageWomen(Staff.loginS(textFieldEmail.getText(), password));
-				
+					dispose();
 				}
 			}else {
 					

@@ -1,5 +1,8 @@
 package com.liyi.shop;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 
 import com.liyi.shop.activities.*;
 import com.liyi.shop.model.*;
@@ -10,6 +13,8 @@ public class Main {
 		private static Staff staff;
 
 	public static void main(String[] args) {
+
+
 		//new ActivityCustomerLogin();
 		Staff.staffs.add(new Admin("s", "s" , "s", "", "",""));
 		Staff.staffs.add(new Manager("12", "12" , "12", "", "",""));
@@ -27,22 +32,11 @@ public class Main {
 		//women.addItem(new Item("Fashion Tops Ruffles" ,"C:\\Users\\addme\\Documents\\PhotoOnlineShop\\new-2014-women-summer-fashion-tops-ruffles.jpg", 49.00, "", "women"));
 		women.addItem(new NonFragileProduct("Outfit Navy Blues" ,"C:\\Users\\addme\\Documents\\PhotoOnlineShop\\womens-outfit-navy-blue-120117-344-03-800x534.jpg", 129.99, "", 0.5, 44));
 		women.addItem(new NonFragileProduct("Women Trench Coat" ,"C:\\Users\\addme\\Documents\\PhotoOnlineShop\\womens-trench-coat-120117-345-05-800x535.jpg", 88.99, "", 0.5, 44));
-		Customer.addCustomer("Hwi Li Yi", "liyi98","1","Female","1", "1", "hi", "hh", "loveyou");
-		Customer.addCustomer("Chow Khai Bin", "khaibin","1", "1", "1", "hi","hi", "hh", "ss");
-		Customer.addCustomer("k", "1","j", "1","1", "hi", "hi", "hh", "ss");
-		Customer.addCustomer("k", "1","j", "1","1", "hi", "hi", "hh", "11");
-		Customer.addCustomer("Hwi Li Yi", "liyi98","1","Female","1", "1", "hi", "hh", "loveyou");
-		Customer.addCustomer("Chow Khai Bin", "khaibin","1", "1", "1", "hi","hi", "hh", "ss");
-		Customer.addCustomer("k", "1","j", "1","1", "hi", "hi", "hh", "ss");
-		Customer.addCustomer("k", "1","j", "1","1", "hi", "hi", "hh", "11");
-		Customer.addCustomer("Hwi Li Yi", "liyi98","1","Female","1", "1", "hi", "hh", "loveyou");
-		Customer.addCustomer("Chow Khai Bin", "khaibin","1", "1", "1", "hi","hi", "hh", "ss");
-		Customer.addCustomer("k", "1","j", "1","1", "hi", "hi", "hh", "ss");
-		Customer.addCustomer("k", "1","j", "1","1", "hi", "hi", "hh", "11");
-		Customer.addCustomer("Hwi Li Yi", "liyi98","1","Female","1", "1", "hi", "hh", "loveyou");
-		Customer.addCustomer("Chow Khai Bin", "khaibin","1", "1", "1", "hi","hi", "hh", "ss");
-		Customer.addCustomer("k", "1","j", "1","1", "hi", "hi", "hh", "ss");
-		Customer.addCustomer("k", "1","j", "1","1", "hi", "hi", "hh", "11");
+		Customer.addCustomer("Hwi Li Yi", "liyi98","1","Female","4-8-1998", "1", "hi", "hh", "loveyou");
+		Customer.addCustomer("Chow Khai Bin", "khaibin","", "1", "5-6-1998", "hi","hi", "hh", "ss");
+		Customer.addCustomer("k", "1","j", "1","5-6-1998", "5-6-1998", "2-6-1998", "hh", "ss");
+		Customer.addCustomer("k", "1","j", "1","5-6-1998", "5-6-1998", "12-6-1997", "hh", "11");
+		
 
 	
 		new ActivityHomePage();

@@ -13,19 +13,17 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
+import com.liyi.shop.component.CustomTextField;
 import com.liyi.shop.component.TableButton;
-import com.liyi.shop.model.Customer;
 import com.liyi.shop.model.Staff;
 import com.liyi.shop.small.activity.AddManagerPage;
-import com.liyi.shop.small.activity.EditCustomer;
 import com.liyi.shop.small.activity.EditStaff;
 
 public class ActivityAdminManager extends JFrame {
 
-	private JTextField txtSearch;	
+	private CustomTextField txtSearch;	
 	private String[] columnName = {"ID", "Name", "Email", "Phone", "Role", "Action", "Action"};	
 	private Object[][] array = new Object[Staff.staffs.size()][7];
 	private JTable table2;
@@ -61,8 +59,7 @@ public class ActivityAdminManager extends JFrame {
 		btnAddManager.setBackground(btn);
 		getContentPane().add(btnAddManager);
 		
-		txtSearch = new JTextField();
-		txtSearch.setText("Search");
+		txtSearch = new CustomTextField("Search...");
 		txtSearch.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtSearch.setBounds(26, 115, 670, 30);
 		getContentPane().add(txtSearch);

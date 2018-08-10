@@ -36,6 +36,7 @@ public class ItemSingle extends JPanel {
 	public ItemSingle(Product item) {
 		this.item = item;
 		setSize(240,220);
+		setBackground(new Color(255, 235, 238));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		JLabel lblProductImage = new JLabel("");
 		lblProductImage.setAlignmentX(Component.CENTER_ALIGNMENT);
@@ -81,10 +82,10 @@ public class ItemSingle extends JPanel {
 					
 				}else {
 				Template1.c.getCart().getCartitems().add(new CartItem(item,1));
-				
+				Template1.lblNum.setText("(" + Template1.c.getCart().getCartitems().size() + ")" );
+
 				}
 			
-				Template1.lblNum.setText("(" + Template1.c.getCart().getCartitems().size() + ")" );
 		
 				
 				

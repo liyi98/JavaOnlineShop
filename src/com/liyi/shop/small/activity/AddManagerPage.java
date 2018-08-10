@@ -14,6 +14,7 @@ import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.liyi.shop.model.Customer;
 import com.liyi.shop.model.Manager;
 import com.liyi.shop.model.Staff;
 
@@ -167,6 +168,7 @@ public class AddManagerPage extends JFrame {
 		password1 = new String(pass1);
 		pass2 = txtConfirmPassword.getPassword();
 		password2 = new String(pass2);
+
 		if(txtName.getText().isEmpty() ||txtEmail.getText().isEmpty()||textPhone.getText().isEmpty() || textAddress1.getText().isEmpty() || password1.isEmpty() ) {
 			return 0;
 		}else if(!password1.equals(password2)){

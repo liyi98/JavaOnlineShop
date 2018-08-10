@@ -11,7 +11,7 @@ public class Customer {
 	private String email;
 	private String password;
 	private String gender;
-	private String bod;
+	private String dob;
 	private String address1;
 	private String address2;
 	private String phone;
@@ -23,12 +23,12 @@ public class Customer {
 	
 	public Customer(){}
 	
-	public Customer(String name, String email, String password, String gender, String bod,String address1, String address2, String phone, String safeword){
+	public Customer(String name, String email, String password, String gender, String dob,String address1, String address2, String phone, String safeword){
 		this.name = name;
 		this.email = email;
 		this.password = password;
 		this.gender = gender;
-		this.bod = bod;
+		this.dob = dob;
 		this.address1 = address1;
 		this.address2 = address2;
 		this.phone = phone;
@@ -77,13 +77,19 @@ public class Customer {
 		return gender;
 	}
 	
-	public String getBod() {
-		return bod;
+	public String getDob() {
+		return dob;
 	}
 	
 	public ArrayList<Order> getAllOrder(){
 		return orders;
 	}
+	
+	public Order addOrder(Order order) {
+		orders.add(order);
+		return order;
+	}
+	
 	public void setCart(Cart cart) {
 		this.cart = cart;
 	}
@@ -104,8 +110,8 @@ public class Customer {
 		this.gender = gender;
 	}
 	
-	public void setBod(String bod) {
-		this.bod = bod;
+	public void setDob(String dob) {
+		this.dob = dob;
 	}
 	public void setAddress1(String address1) {
 		this.address1 = address1;
@@ -123,8 +129,8 @@ public class Customer {
 		this.safeword = safeword;
 	}
 	
-	public static Customer addCustomer(String name, String email, String password, String gender, String bod, String address1, String address2, String phone, String safeword){
-		Customer c = new Customer(name, email, password, gender, bod, address1, address2, phone, safeword);
+	public static Customer addCustomer(String name, String email, String password, String gender, String dob, String address1, String address2, String phone, String safeword){
+		Customer c = new Customer(name, email, password, gender, dob, address1, address2, phone, safeword);
 		customers.add(c);
 		return c;
 	}

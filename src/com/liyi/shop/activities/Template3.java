@@ -79,7 +79,8 @@ public class Template3 extends JPanel{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-
+				parent.dispose();
+				new ActivityManageOrder(staff);
 			}
 		});
 		lblLogout.addMouseListener(new MouseAdapter() {

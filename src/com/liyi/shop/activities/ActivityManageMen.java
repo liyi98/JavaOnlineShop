@@ -4,6 +4,8 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
 import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
@@ -16,6 +18,7 @@ import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
 import com.liyi.shop.Main;
+import com.liyi.shop.component.CustomTextField;
 import com.liyi.shop.component.TableButton;
 import com.liyi.shop.model.Category;
 import com.liyi.shop.model.Customer;
@@ -28,7 +31,7 @@ import com.liyi.shop.small.activity.EditProduct;
 
 public class ActivityManageMen extends JFrame{
 	private static final long serialVersionUID = 1L;
-	private JTextField txtSearch;
+	private CustomTextField txtSearch;
 	public static Staff staff;
 	private JTable tablemen;
 	private String[] columnName = {"ID", "Name", "Price", "Stock", "Action", "Action"};	
@@ -63,13 +66,14 @@ public class ActivityManageMen extends JFrame{
 		btnAddProduct.setBackground(btn);
 		getContentPane().add(btnAddProduct);
 		
-		txtSearch = new JTextField();
-		txtSearch.setText("Search");
+		txtSearch = new CustomTextField("Search...");
+		
 		txtSearch.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtSearch.setBounds(26, 115, 670, 30);
 		getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
-		
+		txtSearch.setForeground(Color.GRAY);
+
 		JButton btnSearch = new JButton("GO!");
 		btnSearch.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
 		btnSearch.setBounds(698, 115, 64, 30);

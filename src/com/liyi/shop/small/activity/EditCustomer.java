@@ -5,6 +5,9 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -14,21 +17,22 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.liyi.shop.activities.Template1;
 import com.liyi.shop.model.Customer;
+import com.toedter.calendar.JDateChooser;
 
 public class EditCustomer extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtName;
 	private JTextField txtEmail;
-	private JTextField textBirthday;
 	private JTextField textPhone;
 	private JTextField textAddress1;
 	private JTextField textAddress2;
 	private JTextField textSafeword;
-
+	private JDateChooser calendar;
 	
-	public EditCustomer(Customer customer) {
+	public EditCustomer(Customer customer) throws ParseException {
 		setResizable(false);
 		setTitle("Edit Customer");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -101,13 +105,13 @@ public class EditCustomer extends JFrame{
 		txtEmail.setBackground(SystemColor.controlLtHighlight);
 		txtEmail.setBounds(150, 119, 220, 20);
 		getContentPane().add(txtEmail);
-	
 		
-		textBirthday = new JTextField();
-		textBirthday.setColumns(10);
-		textBirthday.setBackground(SystemColor.controlLtHighlight);
-		textBirthday.setBounds(150, 199, 220, 20);
-		getContentPane().add(textBirthday);
+		String sDate1= customer.getDob();;  
+	    Date date1=new SimpleDateFormat("dd-MM-yyyy").parse(sDate1); 
+		calendar = new JDateChooser(date1);
+		calendar.setSize(220, 20);
+		calendar.setLocation(151, 200);
+		getContentPane().add(calendar);
 		
 		textPhone = new JTextField(customer.getPhone());
 		textPhone.setColumns(10);
@@ -168,11 +172,13 @@ public class EditCustomer extends JFrame{
 		btnSave.setBackground(custom);
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
+				String dob = calendar.getDate().getDate()+ "-" + (calendar.getDate().getMonth() + 1) + "-" + (1900 + calendar.getDate().getYear());
 				customer.setName(txtName.getText());
 				customer.setEmail(txtEmail.getText());
 				customer.setPhone(textPhone.getText());
 				customer.setAddress1(textAddress1.getText());
 				customer.setAddress2(textAddress2.getText());
+				customer.setDob(dob);
 				String gender = (rdbtnFemale.isSelected())? "Female": "Male";
 				customer.setGender(gender);
 				dispose();

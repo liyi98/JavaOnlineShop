@@ -4,6 +4,9 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.FocusEvent;
+import java.awt.event.FocusListener;
+import java.text.ParseException;
 import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
@@ -15,7 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.DefaultTableModel;
 
-
+import com.liyi.shop.component.CustomTextField;
 import com.liyi.shop.component.TableButton;
 import com.liyi.shop.model.Customer;
 import com.liyi.shop.model.Staff;
@@ -24,7 +27,7 @@ import com.liyi.shop.small.activity.EditCustomer;
 
 public class ActivityAdminCustomer extends JFrame{
 	private static final long serialVersionUID = 1L;
-	private JTextField txtSearch;
+	private CustomTextField txtSearch;
 	public static Staff staff;
 	private JTable table_1;
 	private String[] columnName = {"ID", "Name", "Email", "Phone", "Action", "Action"};	
@@ -63,12 +66,12 @@ public class ActivityAdminCustomer extends JFrame{
 		btnAddCustomer.setBackground(btn);
 		getContentPane().add(btnAddCustomer);
 		
-		txtSearch = new JTextField();
-		txtSearch.setText("Search");
+		txtSearch = new CustomTextField("Search...");
 		txtSearch.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtSearch.setBounds(26, 115, 670, 30);
 		getContentPane().add(txtSearch);
 		txtSearch.setColumns(10);
+
 		
 		JButton btnSearch = new JButton("GO!");
 		btnSearch.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
@@ -86,7 +89,11 @@ public class ActivityAdminCustomer extends JFrame{
 		new TableButton(table_1, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditCustomer(Customer.customers.get(Integer.parseInt(e.getActionCommand())));
+				try {
+					new EditCustomer(Customer.customers.get(Integer.parseInt(e.getActionCommand())));
+				}catch (ParseException e1) {
+				
+				}
 				
 			}
 		}, 4);
@@ -137,7 +144,11 @@ public class ActivityAdminCustomer extends JFrame{
 		new TableButton(table_1, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditCustomer(result.get(Integer.parseInt(e.getActionCommand())));
+				try {
+					new EditCustomer(result.get(Integer.parseInt(e.getActionCommand())));
+				} catch (ParseException e1) {
+					// TODO Auto-generated catch block
+				}
 				
 			}
 		}, 4);

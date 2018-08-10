@@ -14,7 +14,7 @@ import java.awt.SystemColor;
 public class ItemListContainer extends JPanel {
 
 	public ItemListContainer(String c) {
-		setBackground(SystemColor.menu);
+		setBackground(new Color(255, 235, 238));
 		setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 		JScrollPane scroll = new JScrollPane();
 		if(c.equals("womens")) {

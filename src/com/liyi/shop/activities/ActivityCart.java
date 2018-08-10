@@ -113,6 +113,8 @@ public class ActivityCart extends JFrame {
 		btnCheckout.setFocusable(false);
 		getContentPane().add(btnCheckout);
 		
+		checkCart();
+		
 		JLabel lblSumLabel = new JLabel("Sum:");
 		lblSumLabel.setFont(new Font("Arial", Font.PLAIN, 13));
 		lblSumLabel.setBounds(31, 510, 100, 18);
@@ -134,12 +136,12 @@ public class ActivityCart extends JFrame {
 		getContentPane().add(lblSum);
 		
 		refresh();
-		
 		btnCheckout.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Template1.c.getAllOrder().add(new Order(Template1.c));
+				new CustomerCheckOut(Template1.c.addOrder(new Order(Template1.c, "UnSucessful")));
+				dispose();
 				
 			}
 		});
@@ -156,4 +158,11 @@ public class ActivityCart extends JFrame {
 		lblSum.setText(sum);
 	}
 
+	private void checkCart() {
+		if(Template1.c.getCart().getCartitems().size() == 0) {
+			btnCheckout.setEnabled(false);
+		}else {
+			btnCheckout.setEnabled(true);
+		}
+	}
 }
