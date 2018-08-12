@@ -6,6 +6,7 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JButton;
+import javax.swing.JFrame;
 
 import java.awt.Color;
 import java.awt.Component;
@@ -33,7 +34,7 @@ public class ItemSingle extends JPanel {
 
 	 private Product item ;
 	 //private ItemQuantity itemQuantity ;
-	public ItemSingle(Product item) {
+	public ItemSingle(Product item, JFrame parent) {
 		this.item = item;
 		setSize(240,220);
 		setBackground(new Color(255, 235, 238));
@@ -95,7 +96,7 @@ public class ItemSingle extends JPanel {
 			@Override
 			public void mouseReleased(MouseEvent arg0) {
 				super.mouseReleased(arg0);
-				new ItemDetails(item);
+				new ItemDetails(item, parent);
 			}
 		});
 		btnCart.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 12));

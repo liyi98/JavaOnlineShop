@@ -1,8 +1,11 @@
 package com.liyi.shop.model;
 
-import java.util.ArrayList;
+import java.io.Serializable;
 
-public class CartItem {
+
+public class CartItem implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	private Product product;
 	private int quantity;
 
@@ -21,10 +24,12 @@ public class CartItem {
 	
 	public void setProduct(Product product) {
 		this.product = product;
+		Customer.setSave();
 	}
 	
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
+		Customer.setSave();
 	}
 	
 	public double subTotal() {

@@ -63,7 +63,7 @@ public class ActivityManageWomen extends JFrame{
 		btnAddProduct.setBackground(btn);
 		getContentPane().add(btnAddProduct);
 		
-		txtSearch = new CustomTextField("Search");
+		txtSearch = new CustomTextField("Search...");
 		txtSearch.setFont(new Font("Tahoma", Font.ITALIC, 13));
 		txtSearch.setBounds(26, 115, 670, 30);
 		getContentPane().add(txtSearch);
@@ -97,7 +97,7 @@ public class ActivityManageWomen extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(null, "Do you want to delete?", "Warning", 0) == 0) {
-					Main.women.delProduct(Integer.parseInt(e.getActionCommand()));
+					Main.women.delProduct(Main.women.getAllItems().get(Integer.parseInt(e.getActionCommand())));
 					dispose();
 					new ActivityManageWomen(staff);
 				}else{
@@ -139,14 +139,20 @@ public class ActivityManageWomen extends JFrame{
 		new TableButton(tablewomen, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new EditCustomer(result.get(Integer.parseInt(e.getActionCommand())));
+				new EditProduct(Main.women,ActivityManageWomen.this, result.get(Integer.parseInt(e.getActionCommand())), staff);
 				
 			}
 		}, 4);
 		new TableButton(tablewomen, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Customer.delCustomer(Integer.parseInt(e.getActionCommand()));
+				if (JOptionPane.showConfirmDialog(null, "Do you want to delete?", "Warning", 0) == 0) {
+					Main.women.delProduct(result.get(Integer.parseInt(e.getActionCommand())));
+					dispose();
+					new ActivityManageWomen(staff);
+				}else{
+					
+				};
 				dispose();
 				new ActivityManageWomen(staff);
 			}

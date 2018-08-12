@@ -80,17 +80,23 @@ public class CustomerCheckOut extends JFrame {
 		header.setLayout(null);
 		getContentPane().add(header);
 		
-		JLabel lblSecond = new JLabel("Timer");
+		JLabel lblSecond = new JLabel("59");
 		lblSecond.setHorizontalAlignment(SwingConstants.CENTER);
-		lblSecond.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 16));
-		lblSecond.setBounds(400, 5 ,50, 40);
+		lblSecond.setFont(new Font("Microsoft JhengHei", Font.BOLD, 22));
+		lblSecond.setBounds(395, 5 ,50, 40);
 		header.add(lblSecond);
 		
-		JLabel lblMinute = new JLabel("Timer");
+		JLabel lblMinute = new JLabel("9");
 		lblMinute.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMinute.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 16));
-		lblMinute.setBounds(350, 5, 50, 40);
+		lblMinute.setFont(new Font("Microsoft JhengHei", Font.BOLD, 22));
+		lblMinute.setBounds(360, 5, 50, 40);
 		header.add(lblMinute);
+		
+		JLabel lblSymbol = new JLabel(":");
+		lblSymbol.setHorizontalAlignment(SwingConstants.LEFT);
+		lblSymbol.setFont(new Font("Microsoft JhengHei", Font.BOLD, 17));
+		lblSymbol.setBounds(398, 15, 46, 20);
+		header.add(lblSymbol);
 		getContentPane().setBackground(bk);
 		
 		 timer = new Timer(1000, new ActionListener() {
@@ -101,8 +107,13 @@ public class CustomerCheckOut extends JFrame {
 	               	 	dispose();
 	               	 	new ActivityHomePage();
 	            	}
-	                lblSecond.setText(String.valueOf(second));
-	                lblMinute.setText(String.valueOf(minute));
+	            	if(second <10 ) {
+	            	     lblSecond.setText(String.valueOf("0" + second)); 
+	            	}else {
+	                    lblMinute.setText(String.valueOf(minute));
+	            		lblSecond.setText(String.valueOf(second));
+	            	}
+	           
 	                second--;
 	                if (second == 0) {
 	                	if(minute > 0) {

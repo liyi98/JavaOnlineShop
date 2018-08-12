@@ -205,8 +205,10 @@ public class SignUpPage extends JFrame{
 				if(checkSignUp() > 5) {
 				String gender = (rdbtnFemale.isSelected())? "Female": "Male";
 				String dob = calendar.getDate().getDate()+ "-" + (calendar.getDate().getMonth() + 1) + "-" + (1900 + calendar.getDate().getYear());
-				Customer.customers.add(new Customer(txtName.getText(), txtEmail.getText(), password1, gender,dob ,textPhone.getText(),textAddress1.getText(), textAddress2.getText(), textSafeword.getText()));
+				Customer.addCustomer(txtName.getText(), txtEmail.getText(), password1, gender,dob ,textPhone.getText(),textAddress1.getText(), textAddress2.getText(), textSafeword.getText());
 				JOptionPane.showMessageDialog(null,"Sucess!");
+				dispose();
+				new ActivityCustomerLogin();
 
 				}else if (checkSignUp() == 0) {
 					JOptionPane.showMessageDialog(null,"Please fill up all the required field");

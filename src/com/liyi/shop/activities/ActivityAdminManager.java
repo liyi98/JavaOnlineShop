@@ -83,7 +83,7 @@ public class ActivityAdminManager extends JFrame {
 		new TableButton(table2, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-			new EditStaff(Staff.staffs.get(Integer.parseInt(e.getActionCommand())));	
+			new EditStaff(Staff.staffs.get(Integer.parseInt(e.getActionCommand())), ActivityAdminManager.this);	
 				
 			}
 		}, 5);
@@ -91,7 +91,7 @@ public class ActivityAdminManager extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(null, "Do you want to delete?", "Warning", 0) == 0) {
-					Staff.deleteStaff(Integer.parseInt(e.getActionCommand()));
+					Staff.deleteStaff(Staff.staffs.get(Integer.parseInt(e.getActionCommand())));
 					dispose();
 					new ActivityAdminManager(staff);
 				}else{
@@ -133,7 +133,7 @@ public class ActivityAdminManager extends JFrame {
 		new TableButton(table2, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				new EditStaff(result.get(Integer.parseInt(e.getActionCommand())));
+				new EditStaff(result.get(Integer.parseInt(e.getActionCommand())),  ActivityAdminManager.this);
 				
 			}
 		}, 5);
@@ -141,7 +141,7 @@ public class ActivityAdminManager extends JFrame {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(null, "Do you want to delete?", "Warning", 0) == 0) {
-					Staff.deleteStaff(Integer.parseInt(e.getActionCommand()));
+					Staff.deleteStaff(Staff.staffs.get(Integer.parseInt(e.getActionCommand())));
 					dispose();
 					new ActivityAdminManager(staff);
 				}else{

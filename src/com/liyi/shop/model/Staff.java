@@ -1,11 +1,20 @@
 package com.liyi.shop.model;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-import com.liyi.shop.activities.Template1;
+import com.liyi.shop.Main;
 import com.liyi.shop.activities.Template2;
 
-public abstract class Staff {
+public abstract class Staff implements Serializable {
+
+	private static final long serialVersionUID = 1L;
 	public static final int ROLE_MANAGER = 1;
 	public static final int ROLE_ADMIN = 2;
 	private String id;
@@ -15,9 +24,8 @@ public abstract class Staff {
 	private String address1;
 	private String address2;
 	private String phone;
-	private static int i = 1;
 	public static ArrayList<Staff> staffs =  new ArrayList<>();
-	public Staff() {};
+
 	public Staff(String name, String email, String password, String address1, String address2, String phone){
 		this.name = name;
 		this.email = email;
@@ -25,7 +33,8 @@ public abstract class Staff {
 		this.address1 = address1;
 		this.address2 = address2;
 		this.phone = phone;
-		id = "M"+ i++ ;
+		id = "M"+ ++Main.storageID.staffID ;
+		Main.storageID.setStaffID(Main.storageID.staffID);
 	}
 	
 	public String getId() {
@@ -58,26 +67,32 @@ public abstract class Staff {
 	
 	public void setName(String name) {
 		this.name = name;
+		setSave();
 	}
 	
 	public void setEmail(String email) {
 		this.email = email;
+		setSave();
 	}
 	
 	public void setPassword(String password) {
 		this.password = password;
+		setSave();
 	}
 	
 	public void setAddress1(String address1) {
 		this.address1 = address1;
+		setSave();
 	}
 	
 	public void setAddress2(String address2) {
 		this.address2 = address2;
+		setSave();
 	}
 	
 	public void setPhone(String phone) {
 		this.phone = phone;
+		setSave();
 	}
 	public static Staff loginS(String email, String password) {
 		for(Staff s : staffs) {
@@ -88,8 +103,14 @@ public abstract class Staff {
 		}
 		return null;
 	}
-	public static void deleteStaff(int i) {
-		staffs.remove(i);
+	public static void deleteStaff(Staff staff) {
+		staffs.remove(staff);
+		setSave();
+	}
+	
+	public static void addStaff(Staff staff) {
+		staffs.add(staff);
+		setSave();
 	}
 	
 	public static ArrayList<Staff> searchStaff(String query){
@@ -101,6 +122,27 @@ public abstract class Staff {
 				
 		}
 		return tmp;
+	}
+	public static void setSave(){
+		try {
+			File f = new File("staff.tmp");
+			FileOutputStream savefile = new FileOutputStream(f);
+			ObjectOutputStream output = new ObjectOutputStream(savefile);
+			output.writeObject(staffs);
+			output.close();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+	public static void setLoad(){
+		try {
+			FileInputStream loadfile = new FileInputStream("staff.tmp");
+			ObjectInputStream input = new ObjectInputStream(loadfile);
+			staffs = (ArrayList<Staff>) input.readObject();
+	
+		} catch (IOException | ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 	}
 	public int getRole() {
 		// TODO Auto-generated method stub

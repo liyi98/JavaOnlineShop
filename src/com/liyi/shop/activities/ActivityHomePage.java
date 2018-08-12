@@ -6,10 +6,15 @@ import java.awt.Dimension;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 
+import com.liyi.shop.Main;
+import com.liyi.shop.component.HomePageItem;
 import com.liyi.shop.component.ItemListContainer;
 import com.liyi.shop.component.ItemSingle;
 import com.liyi.shop.model.Cart;
 import com.liyi.shop.model.Customer;
+import javax.swing.JPanel;
+import java.awt.GridLayout;
+import javax.swing.JLabel;
 
 public class ActivityHomePage extends JFrame{
 	private ItemListContainer itemlistcontainer;
@@ -24,16 +29,35 @@ public class ActivityHomePage extends JFrame{
 		setTitle("Home");
 		Template1 menubar = new Template1(this);
 		getContentPane().add(menubar);
-		itemlistcontainer = new ItemListContainer("womens");
-		itemlistcontainer.setBounds(0, 0, 2000, 430);
-		JScrollPane pane = new JScrollPane(itemlistcontainer);
-		pane.setBounds(20, 95, 760, 430);
-		pane.getVerticalScrollBar().setPreferredSize(new Dimension(4,1));
-		add(pane);
+		
+		JPanel panel = new JPanel();
+		panel.setBounds(47, 93, 692, 191);
+		getContentPane().add(panel);
+		panel.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JPanel panel1 = new JPanel();
+		panel1.setBounds(47, 334, 692, 191);
+		getContentPane().add(panel1);
+		panel1.setLayout(new GridLayout(1, 0, 0, 0));
+		
+		JLabel lblWomen = new JLabel("Fashion Women New Arrival");
+		lblWomen.setBounds(47, 62, 200, 20);
+		getContentPane().add(lblWomen);
+		
+		JLabel lblMen = new JLabel("Fashion Men New Arrival");
+		lblMen.setBounds(47, 307, 200, 20);
+		getContentPane().add(lblMen);
+		for(int i = Main.women.getAllItems().size() - 1 ; i > Main.women.getAllItems().size() -4  ; --i) {
+			panel.add(new HomePageItem(Main.women.getAllItems().get(i)));
+		}
+		
+		for(int i = Main.men.getAllItems().size() - 1 ; i > Main.men.getAllItems().size() -4  ; --i) {
+			panel1.add(new HomePageItem(Main.men.getAllItems().get(i)));
+		}
+			
+			
 		setLocationRelativeTo(null);
 		setVisible(true);
 
 	}
-	
-	
 }

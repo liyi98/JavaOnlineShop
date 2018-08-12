@@ -2,6 +2,8 @@ package com.liyi.shop.model;
 
 public class NonFragileProduct extends Product {
 
+	private static final long serialVersionUID = 1L;
+
 	public NonFragileProduct(String name, String photo, double price, String description, double weight, int stock) {
 		super(name, photo, price, description, weight, stock);
 		// TODO Auto-generated constructor stub

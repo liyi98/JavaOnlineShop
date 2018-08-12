@@ -3,6 +3,8 @@ package com.liyi.shop.model;
 public class Manager extends Staff {
 	
 	
+	private static final long serialVersionUID = 1L;
+
 	public Manager(String name, String email, String password, String address1, String address2, String phone) {
 		super(name, email, password, address1, address2, phone);
 		// TODO Auto-generated constructor stub

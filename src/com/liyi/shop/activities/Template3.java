@@ -55,6 +55,13 @@ public class Template3 extends JPanel{
 		btnMen.setBounds(149, 12, 90, 23);
 		btnMen.setBackground(btn);
 		add(btnMen);
+		
+		JButton btnRate = new JButton("Ratings");
+
+		btnRate.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 11));
+		btnRate.setBackground(new Color(240, 248, 255));
+		btnRate.setBounds(402, 12, 90, 23);
+		add(btnRate);
 		btnWomen.addActionListener(new ActionListener() {
 			
 			@Override
@@ -83,6 +90,14 @@ public class Template3 extends JPanel{
 				new ActivityManageOrder(staff);
 			}
 		});
+		
+		btnRate.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				parent.dispose();
+				new ActivityManageRatings(staff);
+			}
+		});
+		
 		lblLogout.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {

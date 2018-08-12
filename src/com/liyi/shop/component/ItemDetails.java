@@ -25,16 +25,21 @@ import javax.swing.JTextArea;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
 
 public class ItemDetails extends JFrame {
 	private Product item;
 	private ItemQuantity quantity ;
+	private JLabel lblRatings ;
+	private JButton btnRate;
+	private JLabel lblType;
 	
-	public ItemDetails(Product item) {
+	public ItemDetails(Product item, JFrame parent) {
+		this.item = item;
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		getContentPane().setLayout(null);
 		setResizable(false);
-		setSize(500,450);
+		setSize(500,400);
 		Color bk = new Color(255, 235, 238);
 		Color txt = new Color(252,228,236);
 		getContentPane().setBackground(bk);
@@ -53,12 +58,12 @@ public class ItemDetails extends JFrame {
 		getContentPane().add(lblName);
 		
 		JLabel lblPrice = new JLabel("RM " + item.getPrice());
-		lblPrice.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
+		lblPrice.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 13));
 		lblPrice.setBounds(235, 45, 135, 20);
 		getContentPane().add(lblPrice);
 		
 		JLabel lblWeight = new JLabel("Weight");
-		lblWeight.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 11));
+		lblWeight.setFont(new Font("Microsoft JhengHei", Font.PLAIN, 11));
 		lblWeight.setBounds(235, 78, 46, 20);
 		getContentPane().add(lblWeight);
 		
@@ -97,14 +102,16 @@ public class ItemDetails extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				if(Template1.c == null ) {
 					if(JOptionPane.showConfirmDialog(null,"Login to Proceed ", "Please Login", 0) == 0) {
+						parent.dispose();
 						dispose();
 						new ActivityCustomerLogin();
 					}
 					
 				}else {
 					Template1.c.getCart().getCartitems().add(new CartItem(item ,Integer.parseInt(quantity.lblNumber.getText())));
+					Template1.lblNum.setText("(" + Template1.c.getCart().getCartitems().size() + ")" );
 				}
-				Template1.lblNum.setText("(" + Template1.c.getCart().getCartitems().size() + ")" );
+				
 			}
 		});
 		btnCart.setBounds(380, 115, 89, 30);
@@ -122,7 +129,8 @@ public class ItemDetails extends JFrame {
 		StarRating star = new StarRating();
 		star.setLocation(10, 312);
 		getContentPane().add(star);
-		JLabel lblType = new JLabel("New label");
+		
+		lblType = new JLabel("New label");
 		lblType.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 10));
 		lblType.setBounds(10, 246, 200, 15);
 		getContentPane().add(lblType);
@@ -132,36 +140,64 @@ public class ItemDetails extends JFrame {
 		lblDescription_1.setBounds(10, 152, 76, 14);
 		getContentPane().add(lblDescription_1);
 		
-		JButton btnRate = new JButton("Rate");
-		btnRate.setBounds(149, 308, 89, 23);
+		btnRate = new JButton("Rate");
+		btnRate.setBackground(Color.LIGHT_GRAY);
+		btnRate.setBounds(161, 312, 80, 23);
 		getContentPane().add(btnRate);
 		
-		System.out.println(item.getAverageRate());
-		String averageRate = new DecimalFormat("#0.#").format(item.getAverageRate());
-		JLabel lblRatings = new JLabel(averageRate);
-		lblRatings.setBounds(390, 49, 46, 14);
+		lblRatings = new JLabel();
+		lblRatings.setForeground(Color.RED);
+		lblRatings.setBackground(Color.YELLOW);
+		lblRatings.setFont(new Font("Microsoft JhengHei", Font.BOLD, 18));
+		lblRatings.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRatings.setBounds(389, 49, 50, 20);
 		getContentPane().add(lblRatings);
 		
-		if(Template1.c != null){
-			btnRate.setEnabled(true);
-		}else {
-			btnRate.setEnabled(false);
-		}
+		JLabel lblGiveARatings = new JLabel("Give a ratings.....");
+		lblGiveARatings.setFont(new Font("Microsoft JhengHei", Font.BOLD, 11));
+		lblGiveARatings.setBounds(10, 284, 100, 20);
+		getContentPane().add(lblGiveARatings);
+		
+		checkRateSize();
+		checkCustomer();
+		checkItemType();
+			
+
 		btnRate.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				item.addRate(new Rate(star.getRate(), Template1.c));
+				item.addRate(new Rate(star.getRate(), Template1.c, item));
 			}
 		});
 		
+
+		
+		setLocationRelativeTo(null);
+		setVisible(true);
+	}
+	
+	private void checkItemType() {
 		if(item.getType() == 1) {
 			lblType.setText("Fragile Shipping Fee: RM 10/kg");
 		}else {
 			lblType.setText("Non-Fragile Shipping Fee: RM 8/kg");
 		}
-		
-		setLocationRelativeTo(null);
-		setVisible(true);
+	}
+	private void checkRateSize() {
+		if(item.getRates().size() == 0) {
+			lblRatings.setText("0.0");
+		}else {
+			String averageRate = new DecimalFormat("#0.0").format(item.getAverageRate());
+			lblRatings.setText(averageRate);
+		}
+	}
+	
+	private void checkCustomer() {
+		if(Template1.c != null){
+			btnRate.setEnabled(true);
+		}else {
+			btnRate.setEnabled(false);
+		}
 	}
 }

@@ -111,7 +111,7 @@ public class ActivityCustomerLogin extends JFrame {
 	getContentPane().add(lblSignUp);
 	lblSignUp.addMouseListener(new MouseAdapter(){
 		public void mouseReleased(MouseEvent e) {
-			// TODO Auto-generated method stub
+			dispose();
 			super.mouseReleased(e);
 			new SignUpPage();
 

@@ -1,6 +1,8 @@
 package com.liyi.shop.model;
 
-public class FragileProduct extends Product{
+public class FragileProduct extends Product {
+
+	private static final long serialVersionUID = 1L;
 
 	public FragileProduct(String name, String photo, double price, String description, double weight, int stock) {
 		super(name, photo, price, description, weight, stock);

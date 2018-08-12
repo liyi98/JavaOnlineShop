@@ -65,8 +65,7 @@ public class ForgotPasswordStep1 extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Customer c = new Customer();
-				String newc = c.findPassword(txtEmail.getText(), txtSafeWord.getText());
+				String newc = Customer.findPassword(txtEmail.getText(), txtSafeWord.getText());
 				if(newc != null) {
 					new ForgotPasswordStep2(newc);
 					dispose();

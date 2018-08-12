@@ -102,7 +102,7 @@ public class ActivityManageMen extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(null, "Do you want to delete?", "Warning", 0) == 0) {
-					Main.men.delProduct(Integer.parseInt(e.getActionCommand()));
+					Main.men.delProduct(Main.men.getAllItems().get(Integer.parseInt(e.getActionCommand())));
 					dispose();
 					new ActivityManageMen(staff);
 				}else{
@@ -144,14 +144,13 @@ public class ActivityManageMen extends JFrame{
 		new TableButton(tablemen, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//new EditCustomer(result.get(Integer.parseInt(e.getActionCommand())));
-				
+				new EditProduct(Main.men, ActivityManageMen.this, result.get(Integer.parseInt(e.getActionCommand())), staff);	
 			}
 		}, 4);
 		new TableButton(tablemen, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Customer.delCustomer(Integer.parseInt(e.getActionCommand()));
+				Main.men.delProduct(result.get(Integer.parseInt(e.getActionCommand())));
 				dispose();
 				new ActivityManageMen(staff);
 			}

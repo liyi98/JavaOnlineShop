@@ -149,7 +149,7 @@ public class AddManagerPage extends JFrame {
 				pass2 = txtConfirmPassword.getPassword();
 				password2 = new String(pass2);
 				if(checkSignUp() > 2) {
-					Staff.staffs.add(new Manager(txtName.getText(), txtEmail.getText(),password1, textAddress1.getText(), textAddress2.getText(), textPhone.getText()));
+					Staff.addStaff(new Manager(txtName.getText(), txtEmail.getText(),password1, textAddress1.getText(), textAddress2.getText(), textPhone.getText()));
 					JOptionPane.showMessageDialog(null,"Sucess!");
 					}else if (checkSignUp() == 0) {
 						JOptionPane.showMessageDialog(null,"Please fill up all the required field");

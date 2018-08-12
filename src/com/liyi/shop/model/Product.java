@@ -1,8 +1,13 @@
 package com.liyi.shop.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public abstract class Product {
+import com.liyi.shop.Main;
+
+public abstract class Product implements Serializable {
+	
+	private static final long serialVersionUID = 1L;
 	protected static final int FRAGILE = 1;
 	protected static final int NON_FRAGILE = 2;
 	protected static final double FRAGILE_SHIPPING_FEE = 10.00;
@@ -14,7 +19,6 @@ public abstract class Product {
 	private String description;
 	protected double weight;
 	private int stock;
-	private static int i = 1;
 	private ArrayList<Rate> rates = new ArrayList<>();
 	
 	
@@ -25,8 +29,8 @@ public abstract class Product {
 		this.description = description;
 		this.weight = weight;
 		this.stock = stock;
-		id = "P"+ i++ ;
-		rates.add(new Rate(0, null));
+		id = "P"+ ++Main.storageID.productID ;
+		Main.storageID.setProductID(Main.storageID.productID);
 	}
 	
 	public String getId(){
@@ -49,13 +53,11 @@ public abstract class Product {
 		return rates;
 	}
 	public double getAverageRate() {
-		int i = 0;
+		double i = 0;
 		for(Rate rate : rates) {
 			i += rate.getRate();
 		}
-		System.out.println(i);
 		double averageRate = i / rates.size();
-		System.out.println(averageRate);
 		return averageRate;
 	}
 	public String getDescription() {
@@ -72,30 +74,42 @@ public abstract class Product {
 	
 	public void setName(String name) {
 		this.name = name;
+		Main.setSave();
 	}
 	
 	public void setPhoto(String photo) {
 		this.photo = photo;
+		Main.setSave();
 	}
 
 	public void setPrice(Double price) {
 		this.price = price;
+		Main.setSave();
 	}
 	
 	public void setDescription(String description) {
 		this.description = description;
+		Main.setSave();
 	}
 	
 	public void setWeight(double weight) {
 		this.weight = weight;
+		Main.setSave();
 	}
 	
 	public void setStock(int stock) {
 		this.stock = stock;
+		Main.setSave();
 	}
 	
 	public void addRate(Rate rate) {
 		rates.add(rate);
+		Main.setSave();
+	}
+	
+	public void delRate(Rate rate) {
+		rates.remove(rate);
+		Main.setSave();
 	}
 	
 	public double calShippingFee() {

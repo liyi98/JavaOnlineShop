@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -17,26 +19,36 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.liyi.shop.activities.ActivityAdminCustomer;
 import com.liyi.shop.activities.Template1;
 import com.liyi.shop.model.Customer;
+import com.liyi.shop.model.Product;
+import com.liyi.shop.model.Staff;
 import com.toedter.calendar.JDateChooser;
+import javax.swing.JPasswordField;
 
 public class EditCustomer extends JFrame{
 
 	private static final long serialVersionUID = 1L;
 	private JTextField txtName;
 	private JTextField txtEmail;
-	private JTextField textPhone;
-	private JTextField textAddress1;
-	private JTextField textAddress2;
-	private JTextField textSafeword;
+	private JTextField txtPhone;
+	private JTextField txtAddress1;
+	private JTextField txtAddress2;
+	private JTextField txtSafeword;
+	private JLabel lblResetPassword;
 	private JDateChooser calendar;
+	private char[] pass1;
+	private String password1;
+	private Staff staff;
+	private JPasswordField txtPassword;
 	
-	public EditCustomer(Customer customer) throws ParseException {
+	public EditCustomer(Customer customer,JFrame parent, Staff staff) throws ParseException {
+		this.staff = staff;
 		setResizable(false);
 		setTitle("Edit Customer");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-		setSize(419,530);
+		setSize(420,580);
 		getContentPane().setLayout(null);
 		Color bk = new Color(255, 235, 238);
 		getContentPane().setBackground(bk);
@@ -113,29 +125,30 @@ public class EditCustomer extends JFrame{
 		calendar.setLocation(151, 200);
 		getContentPane().add(calendar);
 		
-		textPhone = new JTextField(customer.getPhone());
-		textPhone.setColumns(10);
-		textPhone.setBackground(SystemColor.controlLtHighlight);
-		textPhone.setBounds(150, 239, 220, 20);
-		getContentPane().add(textPhone);
+		txtPhone = new JTextField(customer.getPhone());
+		txtPhone.setColumns(10);
+		txtPhone.setBackground(SystemColor.controlLtHighlight);
+		txtPhone.setBounds(150, 239, 220, 20);
+		getContentPane().add(txtPhone);
 		
-		textAddress1 = new JTextField(customer.getAddress1());
-		textAddress1.setColumns(10);
-		textAddress1.setBackground(SystemColor.controlLtHighlight);
-		textAddress1.setBounds(150, 279, 220, 20);
-		getContentPane().add(textAddress1);
+		txtAddress1 = new JTextField(customer.getAddress1());
+		txtAddress1.setColumns(10);
+		txtAddress1.setBackground(SystemColor.controlLtHighlight);
+		txtAddress1.setBounds(150, 279, 220, 20);
+		getContentPane().add(txtAddress1);
 		
-		textAddress2 = new JTextField(customer.getAddress2());
-		textAddress2.setColumns(10);
-		textAddress2.setBackground(SystemColor.controlLtHighlight);
-		textAddress2.setBounds(150, 319, 220, 20);
-		getContentPane().add(textAddress2);
+		txtAddress2 = new JTextField(customer.getAddress2());
+		txtAddress2.setColumns(10);
+		txtAddress2.setBackground(SystemColor.controlLtHighlight);
+		txtAddress2.setBounds(150, 319, 220, 20);
+		getContentPane().add(txtAddress2);
 		
-		textSafeword = new JTextField(customer.getSafeword());
-		textSafeword.setColumns(10);
-		textSafeword.setBackground(SystemColor.controlLtHighlight);
-		textSafeword.setBounds(150, 359, 220, 20);
-		getContentPane().add(textSafeword);
+		txtSafeword = new JTextField(customer.getSafeword());
+		txtSafeword.setColumns(10);
+		txtSafeword.setBackground(SystemColor.controlLtHighlight);
+		txtSafeword.setBounds(150, 359, 220, 20);
+		txtSafeword.setEditable(false);
+		getContentPane().add(txtSafeword);
 		
 		JRadioButton rdbtnMale = new JRadioButton("Male");
 		rdbtnMale.setBackground(SystemColor.text);
@@ -157,12 +170,12 @@ public class EditCustomer extends JFrame{
 			rdbtnMale.setSelected(true);
 		}
 		
-		JLabel lblNewLabel = new JLabel("must exactly 4charaters");
+		JLabel lblNewLabel = new JLabel("must exactly 8charaters");
 		lblNewLabel.setEnabled(false);
 		lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 9));
 		lblNewLabel.setHorizontalAlignment(SwingConstants.LEFT);
 		lblNewLabel.setForeground(Color.RED);
-		lblNewLabel.setBounds(150, 379, 240, 12);
+		lblNewLabel.setBounds(150, 379, 220, 12);
 		getContentPane().add(lblNewLabel);
 		
 		JButton btnSave = new JButton("Save");
@@ -170,28 +183,56 @@ public class EditCustomer extends JFrame{
 		Color custom = new Color(236, 64, 122);
 		btnSave.setForeground(Color.WHITE);
 		btnSave.setBackground(custom);
+		btnSave.setBounds(281, 465, 89, 30);
+		getContentPane().add(btnSave);
+		
+		lblResetPassword = new JLabel("Reset Password");
+		lblResetPassword.setForeground(Color.BLUE);
+		lblResetPassword.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
+		lblResetPassword.setBounds(25, 470, 100, 14);
+		getContentPane().add(lblResetPassword);
+		
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPassword.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
+		lblPassword.setBounds(25, 403, 120, 15);
+		getContentPane().add(lblPassword);
+		
+		txtPassword = new JPasswordField(customer.getPassword());
+		txtPassword.setColumns(10);
+		txtPassword.setBackground(Color.WHITE);
+		txtPassword.setBounds(150, 403, 220, 20);
+		txtPassword.setEnabled(false);
+		getContentPane().add(txtPassword);
+		
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				String dob = calendar.getDate().getDate()+ "-" + (calendar.getDate().getMonth() + 1) + "-" + (1900 + calendar.getDate().getYear());
 				customer.setName(txtName.getText());
 				customer.setEmail(txtEmail.getText());
-				customer.setPhone(textPhone.getText());
-				customer.setAddress1(textAddress1.getText());
-				customer.setAddress2(textAddress2.getText());
+				customer.setPhone(txtPhone.getText());
+				customer.setAddress1(txtAddress1.getText());
+				customer.setAddress2(txtAddress2.getText());
 				customer.setDob(dob);
 				String gender = (rdbtnFemale.isSelected())? "Female": "Male";
 				customer.setGender(gender);
+				pass1 = txtPassword.getPassword();
+				password1 = new String(pass1);
+				customer.setPassword(password1);
 				dispose();
+				parent.dispose();
+				new ActivityAdminCustomer(staff);
 			}
 		});
-		btnSave.setBounds(281, 432, 89, 30);
-		getContentPane().add(btnSave);
 		
-		JLabel lblNewLabel_1 = new JLabel("Reset Password");
-		lblNewLabel_1.setForeground(Color.BLUE);
-		lblNewLabel_1.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(25, 441, 100, 14);
-		getContentPane().add(lblNewLabel_1);
+		lblResetPassword.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				txtPassword.setEnabled(true);
+			}
+		});
+		
+		
 		setLocationRelativeTo(null);
 		setVisible(true);
 	}

@@ -13,7 +13,7 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 
 public class StarRating extends JPanel {
-	private int i = 0;
+	private double i = 0.0;
 	
 	public StarRating() {
 		setLayout(null);
@@ -23,12 +23,14 @@ public class StarRating extends JPanel {
 		lblstar1.setIcon(new ImageIcon("C:\\Users\\addme\\Documents\\PhotoOnlineShop\\star.png"));
 		lblstar1.setSize(19, 19);
 		lblstar1.setLocation(0, 0);
+		lblstar1.setVisible(false);
 		add(lblstar1);
 		
 		JLabel lblstar2 = new JLabel();
 		lblstar2.setIcon(new ImageIcon("C:\\Users\\addme\\Documents\\PhotoOnlineShop\\star.png"));
 		lblstar2.setSize(19, 19);
 		lblstar2.setLocation(19, 0);
+		lblstar2.setVisible(false);
 		add(lblstar2);
 		
 		JLabel lblstar3 = new JLabel();
@@ -53,14 +55,14 @@ public class StarRating extends JPanel {
 		lblrate1.setIcon(new ImageIcon("C:\\Users\\addme\\Documents\\PhotoOnlineShop\\rate.png"));
 		lblrate1.setSize(19, 19);
 		lblrate1.setLocation(0, 0);
-		lblrate1.setVisible(false);
+		lblrate1.setVisible(true);
 		add(lblrate1);
 	
 		JLabel lblrate2 = new JLabel();
 		lblrate2.setIcon(new ImageIcon("C:\\Users\\addme\\Documents\\PhotoOnlineShop\\rate.png"));
 		lblrate2.setSize(19, 19);
 		lblrate2.setLocation(19, 0);
-		lblrate2.setVisible(false);
+		lblrate2.setVisible(true);
 		add(lblrate2);
 		
 		JLabel lblrate3 = new JLabel();
@@ -87,7 +89,7 @@ public class StarRating extends JPanel {
 		lblstar1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				i = 1;
+				i = 1.0;
 				lblstar1.setVisible(false);
 				lblrate1.setVisible(true);
 				
@@ -97,7 +99,7 @@ public class StarRating extends JPanel {
 		lblrate1.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				i = 1;
+				i = 1.0;
 				lblstar1.setVisible(false);
 				lblstar2.setVisible(true);
 				lblstar3.setVisible(true);
@@ -113,7 +115,7 @@ public class StarRating extends JPanel {
 		lblstar2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				i = 2;
+				i = 2.0;
 				lblstar1.setVisible(false);
 				lblstar2.setVisible(false);
 				lblrate1.setVisible(true);
@@ -123,7 +125,7 @@ public class StarRating extends JPanel {
 		lblrate2.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				i = 2;
+				i = 2.0;
 				lblstar1.setVisible(false);
 				lblstar2.setVisible(false);
 				lblstar3.setVisible(true);
@@ -140,7 +142,7 @@ public class StarRating extends JPanel {
 		lblstar3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				i = 3;
+				i = 3.0;
 				lblstar1.setVisible(false);
 				lblstar2.setVisible(false);
 				lblstar3.setVisible(false);
@@ -153,7 +155,7 @@ public class StarRating extends JPanel {
 		lblrate3.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				i = 3;
+				i = 3.0;
 				lblstar1.setVisible(false);
 				lblstar2.setVisible(false);
 				lblstar3.setVisible(false);
@@ -170,7 +172,7 @@ public class StarRating extends JPanel {
 		lblstar4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				i = 4;
+				i = 4.0;
 				lblstar1.setVisible(false);
 				lblstar2.setVisible(false);
 				lblstar3.setVisible(false);
@@ -185,7 +187,7 @@ public class StarRating extends JPanel {
 		lblrate4.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				i = 4;
+				i = 4.0;
 				lblstar1.setVisible(false);
 				lblstar2.setVisible(false);
 				lblstar3.setVisible(false);
@@ -201,7 +203,7 @@ public class StarRating extends JPanel {
 		lblstar5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				i = 5;
+				i = 5.0;
 				lblstar1.setVisible(false);
 				lblstar2.setVisible(false);
 				lblstar3.setVisible(false);
@@ -218,7 +220,7 @@ public class StarRating extends JPanel {
 		lblrate5.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseReleased(MouseEvent e) {
-				i = 5;
+				i = 5.0;
 				lblstar1.setVisible(false);
 				lblstar2.setVisible(false);
 				lblstar3.setVisible(false);
@@ -232,7 +234,7 @@ public class StarRating extends JPanel {
 			}
 		});
 	}
-	public int getRate() {
+	public double getRate() {
 		return i ;
 	}
 }

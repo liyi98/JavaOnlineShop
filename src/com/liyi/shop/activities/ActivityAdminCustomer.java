@@ -90,7 +90,7 @@ public class ActivityAdminCustomer extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new EditCustomer(Customer.customers.get(Integer.parseInt(e.getActionCommand())));
+					new EditCustomer(Customer.customers.get(Integer.parseInt(e.getActionCommand())), ActivityAdminCustomer.this, staff);
 				}catch (ParseException e1) {
 				
 				}
@@ -102,7 +102,7 @@ public class ActivityAdminCustomer extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				if (JOptionPane.showConfirmDialog(null, "Do you want to delete?", "Warning", 0) == 0) {
-					Customer.delCustomer(Integer.parseInt(e.getActionCommand()));
+					Customer.delCustomer(Customer.customers.get(Integer.parseInt(e.getActionCommand())));
 					dispose();
 					new ActivityAdminCustomer(staff);
 				}else{
@@ -145,7 +145,7 @@ public class ActivityAdminCustomer extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				try {
-					new EditCustomer(result.get(Integer.parseInt(e.getActionCommand())));
+					new EditCustomer(result.get(Integer.parseInt(e.getActionCommand())), ActivityAdminCustomer.this, staff);
 				} catch (ParseException e1) {
 					// TODO Auto-generated catch block
 				}
@@ -155,7 +155,7 @@ public class ActivityAdminCustomer extends JFrame{
 		new TableButton(table_1, new AbstractAction() {
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				Customer.delCustomer(Integer.parseInt(e.getActionCommand()));
+				Customer.delCustomer(result.get(Integer.parseInt(e.getActionCommand())));
 				dispose();
 				new ActivityAdminCustomer(staff);
 			}

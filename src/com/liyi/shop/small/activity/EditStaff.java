@@ -5,6 +5,8 @@ import java.awt.Font;
 import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -16,21 +18,25 @@ import javax.swing.JRadioButton;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
+import com.liyi.shop.activities.ActivityAdminManager;
 import com.liyi.shop.model.Staff;
 
 public class EditStaff extends JFrame{
 	private JTextField txtName;
 	private JTextField txtEmail;
-	private JTextField textBirthday;
-	private JTextField textPhone;
-	private JTextField textAddress1;
-	private JTextField textAddress2;
+	private JPasswordField txtPassword;
+	private JTextField txtPhone;
+	private JTextField txtAddress1;
+	private JTextField txtAddress2;
+	private JLabel lblResetPassword;
 	private JRadioButton rdbtnManager;
 	private JRadioButton rdbtnAdmin;
+	private char[] pass1;
+	private String password1;
 	private Staff staff;
 
 	
-	public EditStaff(Staff staff) {
+	public EditStaff(Staff staff, JFrame parent) {
 		this.staff = staff;
 		setResizable(false);
 		setTitle("Edit Staff");
@@ -57,11 +63,11 @@ public class EditStaff extends JFrame{
 		lblEmail.setBounds(25, 120, 120, 15);
 		getContentPane().add(lblEmail);
 		
-		JLabel lblBirthday = new JLabel("Birthday");
-		lblBirthday.setHorizontalAlignment(SwingConstants.LEFT);
-		lblBirthday.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
-		lblBirthday.setBounds(25, 160, 120, 15);
-		getContentPane().add(lblBirthday);
+		JLabel lblPassword = new JLabel("Password");
+		lblPassword.setHorizontalAlignment(SwingConstants.LEFT);
+		lblPassword.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 14));
+		lblPassword.setBounds(25, 160, 120, 15);
+		getContentPane().add(lblPassword);
 		
 		JLabel lblPhone = new JLabel("Phone");
 		lblPhone.setHorizontalAlignment(SwingConstants.LEFT);
@@ -100,29 +106,30 @@ public class EditStaff extends JFrame{
 		getContentPane().add(txtEmail);
 	
 		
-		textBirthday = new JTextField();
-		textBirthday.setColumns(10);
-		textBirthday.setBackground(SystemColor.controlLtHighlight);
-		textBirthday.setBounds(150, 159, 220, 20);
-		getContentPane().add(textBirthday);
+		txtPassword = new JPasswordField(staff.getPassword());
+		txtPassword.setEnabled(false);
+		txtPassword.setColumns(10);
+		txtPassword.setBackground(SystemColor.controlLtHighlight);
+		txtPassword.setBounds(150, 159, 220, 20);
+		getContentPane().add(txtPassword);
 		
-		textPhone = new JTextField(staff.getPhone());
-		textPhone.setColumns(10);
-		textPhone.setBackground(SystemColor.controlLtHighlight);
-		textPhone.setBounds(150, 199, 220, 20);
-		getContentPane().add(textPhone);
+		txtPhone = new JTextField(staff.getPhone());
+		txtPhone.setColumns(10);
+		txtPhone.setBackground(SystemColor.controlLtHighlight);
+		txtPhone.setBounds(150, 199, 220, 20);
+		getContentPane().add(txtPhone);
 		
-		textAddress1 = new JTextField(staff.getAddress1());
-		textAddress1.setColumns(10);
-		textAddress1.setBackground(SystemColor.controlLtHighlight);
-		textAddress1.setBounds(150, 239, 220, 20);
-		getContentPane().add(textAddress1);
+		txtAddress1 = new JTextField(staff.getAddress1());
+		txtAddress1.setColumns(10);
+		txtAddress1.setBackground(SystemColor.controlLtHighlight);
+		txtAddress1.setBounds(150, 239, 220, 20);
+		getContentPane().add(txtAddress1);
 		
-		textAddress2 = new JTextField(staff.getAddress2());
-		textAddress2.setColumns(10);
-		textAddress2.setBackground(SystemColor.controlLtHighlight);
-		textAddress2.setBounds(150, 279, 220, 20);
-		getContentPane().add(textAddress2);
+		txtAddress2 = new JTextField(staff.getAddress2());
+		txtAddress2.setColumns(10);
+		txtAddress2.setBackground(SystemColor.controlLtHighlight);
+		txtAddress2.setBounds(150, 279, 220, 20);
+		getContentPane().add(txtAddress2);
 
 		rdbtnManager = new JRadioButton("Manager");
 		rdbtnManager.setBounds(151, 318, 109, 23);
@@ -149,24 +156,37 @@ public class EditStaff extends JFrame{
 		Color custom = new Color(236, 64, 122);
 		btnSave.setForeground(Color.WHITE);
 		btnSave.setBackground(custom);
+		btnSave.setBounds(281, 432, 89, 30);
+		getContentPane().add(btnSave);
+		
+		lblResetPassword = new JLabel("Reset Password");
+		lblResetPassword.setForeground(Color.BLUE);
+		lblResetPassword.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
+		lblResetPassword.setBounds(25, 441, 100, 14);
+		getContentPane().add(lblResetPassword);
+		
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				staff.setName(txtName.getText());
 				staff.setEmail(txtEmail.getText());
-				staff.setPhone(textPhone.getText());
-				staff.setAddress1(textAddress1.getText());
-				staff.setAddress2(textAddress2.getText());
+				staff.setPhone(txtPhone.getText());
+				staff.setAddress1(txtAddress1.getText());
+				staff.setAddress2(txtAddress2.getText());
+				pass1 = txtPassword.getPassword();
+				password1 = new String(pass1);
+				staff.setPassword(password1);
 				dispose();
+				parent.dispose();
+				new ActivityAdminManager(staff);
 			}
 		});
-		btnSave.setBounds(281, 432, 89, 30);
-		getContentPane().add(btnSave);
 		
-		JLabel lblNewLabel_1 = new JLabel("Reset Password");
-		lblNewLabel_1.setForeground(Color.BLUE);
-		lblNewLabel_1.setFont(new Font("Microsoft JhengHei Light", Font.PLAIN, 13));
-		lblNewLabel_1.setBounds(25, 441, 100, 14);
-		getContentPane().add(lblNewLabel_1);
+		lblResetPassword.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseReleased(MouseEvent e) {
+				txtPassword.setEnabled(true);
+			}
+		});
 		
 		setLocationRelativeTo(null);
 		setVisible(true);

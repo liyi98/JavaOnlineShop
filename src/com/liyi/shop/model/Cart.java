@@ -1,13 +1,14 @@
 package com.liyi.shop.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 
 
-public class Cart {
-	private  ArrayList<CartItem> cartitems = new ArrayList<CartItem>() {
+public class Cart implements Serializable{
 
-		private static final long serialVersionUID = 1L;
+	private static final long serialVersionUID = 1L;
+	private  ArrayList<CartItem> cartitems = new ArrayList<CartItem>() {
 
 		@Override
 		public boolean add(CartItem item) {

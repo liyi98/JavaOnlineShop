@@ -132,7 +132,7 @@ public class CustomerProfile extends JFrame {
 		lblSafeWord.setBounds(250, 400, 100, 20);
 		getContentPane().add(lblSafeWord);
 		
-		txtSafeWord = new JTextField((String) null);
+		txtSafeWord = new JTextField(Template1.c.getSafeword());
 		txtSafeWord.setColumns(10);
 		txtSafeWord.setBounds(371, 400, 200, 20);
 		getContentPane().add(txtSafeWord);

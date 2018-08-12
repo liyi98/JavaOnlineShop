@@ -1,10 +1,13 @@
 package com.liyi.shop.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Random;
 
-public class Order {
+public class Order implements Serializable{
+
+	private static final long serialVersionUID = 1L;
 	private int orderID;
 	private Customer customer;
 	private String status;
@@ -20,6 +23,7 @@ public class Order {
 			orderitems.add(new OrderItem(item.getProduct(), item.getQuantity()));
 			int newStock = item.getProduct().getStock() - item.getQuantity();
 			item.getProduct().setStock(newStock);
+			Customer.setSave();
 		}
 		customer.getCart().getCartitems().clear();
 		orderID = rand.nextInt(1000000000) + 1;
@@ -47,6 +51,7 @@ public class Order {
 	
 	public void setStatus(String status) {
 		this.status = status;
+		Customer.setSave();
 	}
 	
 	
@@ -66,6 +71,7 @@ public class Order {
 		return fee;
 		
 	}
+	
 	
 	public double getSum() {
 		double sum = 0;
